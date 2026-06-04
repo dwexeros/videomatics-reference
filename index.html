@@ -841,8 +841,10 @@ async function saveToGitHub() {
     if (dataStart === -1 || dataEnd === 1) throw new Error('Could not locate DATA block in page source');
     const updatedHTML = fullHTML.slice(0, dataStart) + 'let DATA = ' + dataJSON + ';' + fullHTML.slice(dataEnd);
 
-    // 4. Encode and push
-    const encoded  = btoa(unescape(encodeURIComponent(updatedHTML)));
+    // 4. Encode and push — use TextEncoder for reliable UTF-8 base64
+    const bytes   = new TextEncoder().encode(updatedHTML);
+    const binStr  = Array.from(bytes, b => String.fromCharCode(b)).join('');
+    const encoded = btoa(binStr);
     const pushResp = await fetch(WORKER_URL, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
