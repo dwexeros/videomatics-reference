@@ -823,7 +823,11 @@ async function saveToGitHub() {
     if (!metaResp.ok) throw new Error('SHA fetch failed: ' + metaResp.status);
     const { sha } = await metaResp.json();
 
-    // 3. Grab clean HTML and splice in updated DATA
+    // 3. Reset save button to clean state before capturing HTML
+    saveBtn.disabled = false;
+    saveBtn.innerHTML = '<i class="ti ti-brand-github"></i> Save changes';
+
+    // Grab clean HTML and splice in updated DATA
     const dataJSON  = JSON.stringify(DATA, null, 2);
     const fullHTML  = document.documentElement.outerHTML;
     const marker    = 'let DATA = [';
