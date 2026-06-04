@@ -324,6 +324,12 @@
     25% { transform: translateX(-6px); }
     75% { transform: translateX(6px); }
   }
+
+  /* ── Legend ── */
+  .vm-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 1.5rem; align-items: center; }
+  .vm-legend-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--drac-fg-dim); margin-right: 4px; }
+  .vm-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--drac-fg-muted); }
+  .vm-legend-badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -357,6 +363,22 @@
     <button class="vm-chip" data-cat="Caused by Driver" onclick="setFilter('Caused by Driver')">Caused by driver</button>
     <button class="vm-chip" data-cat="External" onclick="setFilter('External')">External</button>
     <button class="vm-chip" data-cat="System Issues" onclick="setFilter('System Issues')">System issues</button>
+  </div>
+
+  <div class="vm-legend">
+    <span class="vm-legend-label">Key:</span>
+    <div class="vm-legend-item">
+      <span class="vm-legend-badge vm-dnu-badge">🚫 do not use</span>
+      <span>Entry should not be used</span>
+    </div>
+    <div class="vm-legend-item">
+      <span class="vm-legend-badge vm-testing-badge">⚠ needs testing</span>
+      <span>Unverified — never triggered</span>
+    </div>
+    <div class="vm-legend-item">
+      <span class="vm-legend-badge vm-duplicate-badge">⚠ duplicate of…</span>
+      <span>Potential duplicate of another entry</span>
+    </div>
   </div>
 
   <div id="content"></div>
