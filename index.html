@@ -328,7 +328,7 @@
 <div class="page">
   <div class="vm-header">
     <div class="vm-header-text">
-      <h1 id="page-title" contenteditable="false" data-placeholder="Page title" spellcheck="false" class="">VideMatics — events &amp; alarms list</h1>
+      <h1 id="page-title" contenteditable="false" data-placeholder="Page title" spellcheck="false" class="">VideMatics — events &amp; alarms reference</h1>
       <p id="page-subtitle" contenteditable="false" data-placeholder="Subtitle" spellcheck="false" class="">Configuration guide for DVR platform events, AI alarms, and driver behaviour detection</p>
     </div>
     <button class="edit-toggle" id="editToggle" onclick="toggleEditMode()"><i class="ti ti-edit"></i> Edit mode</button>
@@ -2645,66 +2645,63 @@ render();
 // ── Save to GitHub ──
 async function saveToGitHub() {
   const saveBtn = document.getElementById('saveGhBtn');
-
   saveBtn.disabled = true;
   saveBtn.innerHTML = '<i class="ti ti-loader ti-spin"></i> Saving…';
 
   try {
-    // 1. Get SHA
-    const metaResp = await fetch(WORKER_URL, { method: 'GET' });
-    if (!metaResp.ok) {
-      const t = await metaResp.text();
-      throw new Error('SHA fetch failed ' + metaResp.status + ': ' + t.slice(0,100));
-    }
-    const meta = await metaResp.json();
-    const sha  = meta.sha;
-
-    // 2. Fully exit edit mode before capturing HTML so page is in clean state
+    // 1. Exit edit mode cleanly first
     const titleEl    = document.getElementById('page-title');
     const subtitleEl = document.getElementById('page-subtitle');
     const btn        = document.getElementById('editToggle');
     const stickyBtn  = document.getElementById('stickyEditBtn');
-
-    titleEl.contentEditable    = 'false';
+    titleEl.contentEditable = 'false';
     subtitleEl.contentEditable = 'false';
     titleEl.classList.remove('editable-active');
     subtitleEl.classList.remove('editable-active');
     editModeOn = false;
     btn.classList.remove('active');
-    btn.innerHTML        = '<i class="ti ti-edit"></i> Edit mode';
+    btn.innerHTML = '<i class="ti ti-edit"></i> Edit mode';
     stickyBtn.classList.remove('active');
-    stickyBtn.innerHTML  = '<i class="ti ti-edit"></i> Edit mode';
+    stickyBtn.innerHTML = '<i class="ti ti-edit"></i> Edit mode';
     stickyBtn.style.bottom = '24px';
-    document.getElementById('saveGhBtn').classList.remove('visible');
+    saveBtn.classList.remove('visible');
     render();
 
-    // 3. Build updated DATA JSON and splice into a clean script tag
-    const dataJSON = JSON.stringify(DATA, null, 2);
+    // 2. Get SHA
+    const metaResp = await fetch(WORKER_URL, { method: 'GET' });
+    if (!metaResp.ok) throw new Error('SHA fetch failed: ' + metaResp.status);
+    const { sha } = await metaResp.json();
 
-    // Get the full page source and replace just the DATA array
-    const fullHTML = document.documentElement.outerHTML;
+    // 3. Grab clean HTML and splice in updated DATA
+    const dataJSON  = JSON.stringify(DATA, null, 2);
+    const fullHTML  = document.documentElement.outerHTML;
+    const marker    = 'let DATA = [';
+    const start     = fullHTML.indexOf(marker);
+    const end       = fullHTML.indexOf('];', start) + 2;
+    if (start === -1) throw new Error('DATA marker not found in page');
+    const newHTML   = fullHTML.slice(0, start) + 'let DATA = ' + dataJSON + ';' + fullHTML.slice(end);
 
-    // Use a split approach to reliably replace the DATA block
-    const dataStart = fullHTML.indexOf('let DATA = [');
-    const dataEnd   = fullHTML.indexOf('];', dataStart) + 2;
-    if (dataStart === -1 || dataEnd === 1) throw new Error('Could not locate DATA block in page source');
-    const updatedHTML = fullHTML.slice(0, dataStart) + 'let DATA = ' + dataJSON + ';' + fullHTML.slice(dataEnd);
+    // 4. Encode to base64 using Blob — most reliable method in browsers
+    const blob      = new Blob([newHTML], { type: 'text/html' });
+    const reader    = new FileReader();
+    const base64    = await new Promise((resolve, reject) => {
+      reader.onload  = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
 
-    // 4. Encode and push — use TextEncoder for reliable UTF-8 base64
-    const bytes   = new TextEncoder().encode(updatedHTML);
-    const binStr  = Array.from(bytes, b => String.fromCharCode(b)).join('');
-    const encoded = btoa(binStr);
+    // 5. Push to GitHub via Worker
     const pushResp = await fetch(WORKER_URL, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content: encoded, sha })
+      body: JSON.stringify({ content: base64, sha })
     });
 
-    const result = await pushResp.json();
     if (pushResp.ok) {
       showToast('success', '<i class="ti ti-circle-check"></i> Saved! Changes are live.');
     } else {
-      throw new Error('Push failed ' + pushResp.status + ': ' + (result.message || JSON.stringify(result)));
+      const err = await pushResp.json();
+      throw new Error('Push failed: ' + (err.message || pushResp.status));
     }
   } catch (e) {
     showToast('error', '<i class="ti ti-alert-circle"></i> ' + e.message);
