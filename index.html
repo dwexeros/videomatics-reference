@@ -823,9 +823,14 @@ async function saveToGitHub() {
     if (!metaResp.ok) throw new Error('SHA fetch failed: ' + metaResp.status);
     const { sha } = await metaResp.json();
 
-    // 3. Reset save button to clean state before capturing HTML
+    // 3. Reset ALL transient UI state before capturing HTML
     saveBtn.disabled = false;
     saveBtn.innerHTML = '<i class="ti ti-brand-github"></i> Save changes';
+    saveBtn.classList.remove('visible');
+    document.getElementById('saveToast').classList.remove('visible');
+
+    // Small delay to let DOM settle before capture
+    await new Promise(r => setTimeout(r, 50));
 
     // Grab clean HTML and splice in updated DATA
     const dataJSON  = JSON.stringify(DATA, null, 2);
