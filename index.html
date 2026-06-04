@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VideMatics — Events &amp; Alarms Reference</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+<link rel="icon" type="image/png" href="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCABAAEADASIAAhEBAxEB/8QAGQABAQADAQAAAAAAAAAAAAAAAAcEBggD/8QAMRAAAQQBAwAIAwkBAAAAAAAAAQACAwQHBQYRCBITGCExUdMUQVcWFyJCU1RWk5TS/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOVUREBERAREQEREBERBRcEYl1rLG4rFGhaj07TaLGyX78rC8RBxPVa1vI6zzw4gcgAAknyBrjujvh5jiyTPGnh7Tw4fE0xwfn+dZXQ0pXdRwjlbT9MifLftRPgrsY4Nc+R1R4aATxweT6qQs6POYwxo+wFwcD9xX9xBVO7zhz686f8A6qf/AGplnjHOy9h1dIl2lkCvux92WVlhkUsL/hw0NLSezJ45JI8fRePd6zH/AAG5/or+4ta33jnemw4qku7dvTaSy65zK5kkjd2haAXD8Dj5AjzQasiIgIiIOq+hpdu6dhLK1/S5XxX6sT5qz2NDnMkbUeWEA88nkenyUfZ0hcxFjT94FzxH6Ff21j4KyzrmJ9x2NQ02vFqGn3mNjv0JXljZg0nqua4A9V45dweCOCQR6V93SQxS9xfJgjTXPceXEw1Dyfn49n4oJV3hcw/UC5/RX9ta1vnI289+RVIt2bim1dlJzn1xJHG3sy4AOI6jR5gDzV67x2J/oPpv9FP21Ms85K2jkCrpEW19gVtqPoyyvnfDHC34gODQAezaPLgnx9UEqREQEREBERAREQEREH//2Q==" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── Black / Red / White palette ── */
+  :root {
+    --drac-bg:        #0a0a0a;
+    --drac-surface:   #141414;
+    --drac-surface2:  #1e1e1e;
+    --drac-border:    rgba(255,255,255,0.08);
+    --drac-border-h:  rgba(255,255,255,0.2);
+    --drac-comment:   #666666;
+    --drac-fg:        #ffffff;
+    --drac-fg-muted:  #cccccc;
+    --drac-fg-dim:    #777777;
+    --drac-purple:    #e0192d;
+    --drac-purple-d:  #b8101f;
+    --drac-pink:      #ff4d5e;
+    --drac-cyan:      #ff6b78;
+    --drac-green:     #ff4d5e;
+    --drac-yellow:    #ffaaaa;
+    --drac-orange:    #ff6666;
+    --drac-red:       #e0192d;
+
+    /* category fills — all red-tinted, different intensities */
+    --cat-vehicle-bg:   rgba(224,25,45,0.12);
+    --cat-vehicle-text: #ff6b78;
+    --cat-vehicle-dot:  #ff6b78;
+
+    --cat-system-bg:    rgba(255,255,255,0.06);
+    --cat-system-text:  #cccccc;
+    --cat-system-dot:   #cccccc;
+
+    --cat-driver-bg:    rgba(224,25,45,0.18);
+    --cat-driver-text:  #ff4d5e;
+    --cat-driver-dot:   #ff4d5e;
+
+    --cat-caused-bg:    rgba(224,25,45,0.08);
+    --cat-caused-text:  #e0192d;
+    --cat-caused-dot:   #e0192d;
+
+    --cat-external-bg:  rgba(255,255,255,0.04);
+    --cat-external-text:#aaaaaa;
+    --cat-external-dot: #aaaaaa;
+
+    --dnu-bg:   rgba(224,25,45,0.15);
+    --dnu-text: #e0192d;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    background: var(--drac-bg);
+    color: var(--drac-fg);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .page { max-width: 1100px; margin: 0 auto; }
+
+  /* ── Header ── */
+  .vm-header { margin-bottom: 2rem; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .vm-header-text h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; color: var(--drac-purple); }
+  .vm-header-text p { font-size: 13px; color: var(--drac-fg-muted); }
+  [contenteditable] { outline: none; border-radius: 4px; transition: background 0.15s, box-shadow 0.15s; }
+  [contenteditable].editable-active { background: rgba(224,25,45,0.08); box-shadow: 0 0 0 1.5px var(--drac-red); padding: 2px 6px; cursor: text; }
+  [contenteditable].editable-active:empty:before { content: attr(data-placeholder); color: var(--drac-fg-dim); }
+
+  /* ── Edit toggle ── */
+  .edit-toggle {
+    display: flex; align-items: center; gap: 8px; padding: 7px 14px;
+    border: 0.5px solid var(--drac-border); border-radius: 20px;
+    background: var(--drac-surface); color: var(--drac-fg-muted);
+    font-size: 12px; font-family: inherit; cursor: pointer; transition: all 0.15s;
+  }
+  .edit-toggle:hover { border-color: var(--drac-border-h); color: var(--drac-fg); }
+  .edit-toggle.active { background: rgba(224,25,45,0.15); color: var(--drac-red); border-color: var(--drac-red); font-weight: 500; }
+  .edit-toggle i { font-size: 14px; }
+
+  .sticky-edit-btn {
+    position: fixed; bottom: 24px; right: 24px; z-index: 500;
+    display: flex; align-items: center; gap: 8px; padding: 10px 18px;
+    border: 0.5px solid var(--drac-border); border-radius: 24px;
+    background: var(--drac-surface); color: var(--drac-fg-muted);
+    font-size: 13px; font-family: inherit; cursor: pointer;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.6); transition: all 0.2s;
+    opacity: 0; pointer-events: none;
+  }
+  .sticky-edit-btn.visible { opacity: 1; pointer-events: all; }
+  .sticky-edit-btn:hover { border-color: var(--drac-border-h); color: var(--drac-fg); background: var(--drac-surface2); }
+  .sticky-edit-btn.active { background: rgba(224,25,45,0.15); color: var(--drac-red); border-color: var(--drac-red); font-weight: 500; }
+  .sticky-edit-btn i { font-size: 15px; }
+
+  /* ── Stats ── */
+  .vm-stats { display: flex; gap: 10px; margin-bottom: 1.75rem; flex-wrap: wrap; }
+  .vm-stat { background: var(--drac-surface); border: 0.5px solid var(--drac-border); border-radius: 8px; padding: 10px 16px; flex: 1; min-width: 110px; }
+  .vm-stat-n { font-size: 22px; font-weight: 500; color: var(--drac-red); line-height: 1.2; }
+  .vm-stat-l { font-size: 11px; color: var(--drac-fg-dim); margin-top: 2px; }
+
+  /* ── Search ── */
+  .vm-search {
+    width: 100%; padding: 8px 12px; font-size: 13px;
+    border: 0.5px solid var(--drac-border); border-radius: 8px;
+    background: var(--drac-surface); color: var(--drac-fg);
+    margin-bottom: 1.25rem; outline: none; font-family: inherit;
+    transition: border-color 0.15s;
+  }
+  .vm-search::placeholder { color: var(--drac-fg-dim); }
+  .vm-search:focus { border-color: var(--drac-red); }
+
+  /* ── Filters ── */
+  .vm-filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; align-items: center; }
+  .vm-filter-label { font-size: 12px; color: var(--drac-fg-dim); }
+  .vm-chip {
+    font-size: 12px; padding: 4px 12px; border-radius: 20px;
+    border: 0.5px solid var(--drac-border); background: var(--drac-surface);
+    color: var(--drac-fg-muted); cursor: pointer; transition: all 0.15s; font-family: inherit;
+  }
+  .vm-chip:hover { border-color: var(--drac-border-h); color: var(--drac-fg); }
+  .vm-chip.active { border-width: 1.5px; font-weight: 500; }
+  .vm-chip[data-cat="all"].active          { background: rgba(255,255,255,0.08); color: var(--drac-fg);           border-color: rgba(255,255,255,0.3); }
+  .vm-chip[data-cat="Vehicle Issues"].active  { background: var(--cat-vehicle-bg);  color: var(--cat-vehicle-text);  border-color: var(--cat-vehicle-dot); }
+  .vm-chip[data-cat="Driver Issues"].active   { background: var(--cat-driver-bg);   color: var(--cat-driver-text);   border-color: var(--cat-driver-dot); }
+  .vm-chip[data-cat="Caused by Driver"].active{ background: var(--cat-caused-bg);   color: var(--cat-caused-text);   border-color: var(--cat-caused-dot); }
+  .vm-chip[data-cat="External"].active        { background: var(--cat-external-bg); color: var(--cat-external-text); border-color: var(--cat-external-dot); }
+  .vm-chip[data-cat="System Issues"].active   { background: var(--cat-system-bg);   color: var(--cat-system-text);   border-color: var(--cat-system-dot); }
+
+  /* ── Section ── */
+  .vm-section { margin-bottom: 1.75rem; }
+  .vm-section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .vm-section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .vm-section-title { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; }
+  .vm-section-count { font-size: 11px; color: var(--drac-fg-dim); }
+
+  /* ── Cards ── */
+  .vm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 8px; }
+  .vm-card {
+    background: var(--drac-surface); border: 0.5px solid var(--drac-border);
+    border-radius: 12px; padding: 14px 16px;
+    display: flex; flex-direction: column; gap: 8px;
+    transition: border-color 0.15s, box-shadow 0.15s; position: relative;
+  }
+  .vm-card:hover { border-color: var(--drac-border-h); }
+  .vm-card.flagged { border-style: dashed; border-color: rgba(255,85,85,0.4); }
+  .vm-card.edit-mode { cursor: pointer; }
+  .vm-card.edit-mode:hover { border-color: var(--drac-red); box-shadow: 0 0 0 2px rgba(224,25,45,0.15); }
+
+  .vm-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .vm-card-name { font-size: 13px; font-weight: 500; color: var(--drac-fg); line-height: 1.35; }
+  .vm-card-badges { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+  .vm-card-badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; white-space: nowrap; font-weight: 500; }
+  .vm-dnu-badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; background: var(--dnu-bg); color: var(--dnu-text); white-space: nowrap; border: 0.5px solid rgba(255,85,85,0.4); }
+  .vm-testing-badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; background: rgba(255,170,0,0.12); color: #ffaa00; white-space: nowrap; border: 0.5px solid rgba(255,170,0,0.4); }
+  .vm-duplicate-badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; background: rgba(139,233,253,0.1); color: #8be9fd; white-space: nowrap; border: 0.5px solid rgba(139,233,253,0.35); }
+
+  .badge-vehicle { background: var(--cat-vehicle-bg); color: var(--cat-vehicle-text); border: 0.5px solid rgba(255,107,120,0.3); }
+  .badge-driver  { background: var(--cat-driver-bg);  color: var(--cat-driver-text);  border: 0.5px solid rgba(255,77,94,0.3); }
+  .badge-caused  { background: var(--cat-caused-bg);  color: var(--cat-caused-text);  border: 0.5px solid rgba(224,25,45,0.3); }
+  .badge-external{ background: var(--cat-external-bg);color: var(--cat-external-text);border: 0.5px solid rgba(170,170,170,0.2); }
+  .badge-system  { background: var(--cat-system-bg);  color: var(--cat-system-text);  border: 0.5px solid rgba(255,255,255,0.15); }
+
+  .vm-card-desc { font-size: 12px; color: var(--drac-fg-muted); line-height: 1.6; }
+
+  .vm-card-meta { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; border-top: 0.5px solid var(--drac-border); padding-top: 10px; }
+  .vm-meta-row { display: flex; align-items: flex-start; gap: 8px; }
+  .vm-meta-label { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--drac-fg-dim); white-space: nowrap; min-width: 58px; padding-top: 2px; }
+  .vm-meta-value { font-size: 12px; color: var(--drac-fg-muted); display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+  .vm-meta-value i { font-size: 13px; }
+
+  .addon-required { color: var(--drac-orange); font-weight: 500; }
+  .addon-required i { color: var(--drac-orange); }
+  .addon-builtin { color: #aaaaaa; }
+  .addon-builtin i { color: #aaaaaa; }
+  .addon-detail { font-size: 11px; color: var(--drac-fg-dim); }
+
+  .vm-tag { font-size: 10px; padding: 2px 7px; border-radius: 8px; background: var(--drac-surface2); color: var(--drac-fg-dim); border: 0.5px solid var(--drac-border); }
+
+  .edit-hint {
+    position: absolute; bottom: 10px; right: 12px; font-size: 11px; color: var(--drac-purple);
+    opacity: 0; transition: opacity 0.15s; display: flex; align-items: center; gap: 3px;
+    pointer-events: none; color: var(--drac-red);
+  }
+  .vm-card.edit-mode:hover .edit-hint { opacity: 1; }
+
+  /* ── Add card btn ── */
+  .add-card-btn {
+    background: transparent; border: 1.5px dashed var(--drac-border); border-radius: 12px;
+    padding: 14px 16px; display: none; flex-direction: column; align-items: center; justify-content: center;
+    gap: 6px; cursor: pointer; color: var(--drac-fg-dim); font-size: 12px; font-family: inherit;
+    transition: all 0.15s; min-height: 100px;
+  }
+  .add-card-btn:hover { background: var(--drac-surface); color: var(--drac-red); border-color: var(--drac-red); }
+  .add-card-btn i { font-size: 20px; }
+  .add-card-btn.visible { display: flex; }
+
+  /* ── Empty ── */
+  .vm-empty { padding: 3rem; text-align: center; color: var(--drac-fg-dim); font-size: 13px; }
+  .vm-empty i { font-size: 28px; display: block; margin-bottom: 10px; }
+
+  /* ── Export banner ── */
+  .export-bar {
+    display: none; align-items: center; justify-content: space-between; gap: 12px;
+    background: rgba(224,25,45,0.08); border: 0.5px solid var(--drac-red);
+    border-radius: 8px; padding: 10px 14px; margin-bottom: 1.25rem; flex-wrap: wrap;
+  }
+  .export-bar.visible { display: flex; }
+  .export-bar-text { font-size: 12px; color: var(--drac-red); display: flex; align-items: center; gap: 6px; }
+  .export-bar-text i { font-size: 14px; }
+  .export-btn {
+    font-size: 12px; padding: 5px 14px; border-radius: 20px;
+    border: 0.5px solid var(--drac-red); background: var(--drac-red);
+    color: var(--drac-bg); cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.15s;
+  }
+  .export-btn:hover { background: var(--drac-purple-d); border-color: var(--drac-purple-d); color: #fff; }
+
+  /* ── Modal overlay ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(20,21,28,0.75);
+    z-index: 1000; align-items: center; justify-content: center; padding: 1rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--drac-surface); border: 0.5px solid var(--drac-border);
+    border-radius: 12px; width: 100%; max-width: 540px; max-height: 90vh;
+    overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 16px;
+  }
+  .modal-header { display: flex; align-items: center; justify-content: space-between; }
+  .modal-title { font-size: 15px; font-weight: 500; color: var(--drac-red); }
+  .modal-close { background: none; border: none; cursor: pointer; color: var(--drac-fg-dim); font-size: 18px; padding: 4px; display: flex; align-items: center; font-family: inherit; }
+  .modal-close:hover { color: var(--drac-fg); }
+
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-label { font-size: 12px; color: var(--drac-fg-muted); font-weight: 500; }
+  .form-input, .form-select, .form-textarea {
+    padding: 8px 10px; border: 0.5px solid var(--drac-border); border-radius: 8px;
+    background: var(--drac-surface2); color: var(--drac-fg); font-size: 13px;
+    font-family: inherit; outline: none; transition: border-color 0.15s;
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: var(--drac-fg-dim); }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--drac-red); }
+  .form-select option { background: var(--drac-surface2); }
+  .form-textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-checkbox-row { display: flex; align-items: center; gap: 8px; }
+  .form-checkbox-row input[type="checkbox"] { width: 15px; height: 15px; cursor: pointer; accent-color: var(--drac-red); }
+  .form-checkbox-row label { font-size: 13px; color: var(--drac-fg-muted); cursor: pointer; }
+
+  .flags-section { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; background: var(--drac-surface2); border-radius: 8px; border: 0.5px solid var(--drac-border); }
+  .flags-section-title { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--drac-fg-dim); margin-bottom: 2px; }
+  .flag-row { display: flex; align-items: center; gap: 10px; }
+  .flag-row input[type="checkbox"] { width: 15px; height: 15px; cursor: pointer; flex-shrink: 0; }
+  .flag-row input[type="checkbox"].cb-dnu   { accent-color: #e0192d; }
+  .flag-row input[type="checkbox"].cb-test  { accent-color: #ffaa00; }
+  .flag-row input[type="checkbox"].cb-dup   { accent-color: #8be9fd; }
+  .flag-label { display: flex; align-items: center; gap: 6px; cursor: pointer; flex: 1; }
+  .flag-pill { font-size: 10px; padding: 2px 7px; border-radius: 10px; white-space: nowrap; }
+  .flag-pill.dnu  { background: rgba(224,25,45,0.15);  color: #e0192d; border: 0.5px solid rgba(224,25,45,0.4); }
+  .flag-pill.test { background: rgba(255,170,0,0.12);  color: #ffaa00; border: 0.5px solid rgba(255,170,0,0.4); }
+  .flag-pill.dup  { background: rgba(139,233,253,0.1); color: #8be9fd; border: 0.5px solid rgba(139,233,253,0.35); }
+  .flag-desc { font-size: 11px; color: var(--drac-fg-dim); }
+  .dup-input-wrap { display: none; flex-direction: column; gap: 4px; margin-top: 4px; padding-left: 25px; }
+  .dup-input-wrap.visible { display: flex; }
+
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; padding-top: 4px; border-top: 0.5px solid var(--drac-border); }
+  .btn {
+    padding: 7px 16px; border-radius: 8px; font-size: 13px; font-family: inherit;
+    cursor: pointer; border: 0.5px solid var(--drac-border); background: var(--drac-surface2);
+    color: var(--drac-fg-muted); transition: all 0.15s;
+  }
+  .btn:hover { border-color: var(--drac-border-h); color: var(--drac-fg); }
+  .btn-primary { background: var(--drac-red); color: #ffffff; border-color: var(--drac-red); font-weight: 500; }
+  .btn-primary:hover { background: var(--drac-purple-d); border-color: var(--drac-purple-d); color: #ffffff; }
+  .btn-danger { color: var(--drac-red); border-color: rgba(255,85,85,0.3); }
+  .btn-danger:hover { background: rgba(255,85,85,0.12); border-color: var(--drac-red); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="vm-header">
+    <div class="vm-header-text">
+      <h1 id="page-title" contenteditable="false" data-placeholder="Page title" spellcheck="false">VideMatics — events &amp; alarms reference</h1>
+      <p id="page-subtitle" contenteditable="false" data-placeholder="Subtitle" spellcheck="false">Configuration guide for DVR platform events, AI alarms, and driver behaviour detection</p>
+    </div>
+    <button class="edit-toggle" id="editToggle" onclick="toggleEditMode()">
+      <i class="ti ti-edit"></i> Edit mode
+    </button>
+  </div>
+
+  <div class="export-bar" id="exportBar">
+    <span class="export-bar-text"><i class="ti ti-device-floppy"></i> You have unsaved changes — download the updated file to keep them.</span>
+    <button class="export-btn" onclick="exportHTML()">Download updated file</button>
+  </div>
+
+  <div class="vm-stats">
+    <div class="vm-stat"><div class="vm-stat-n" id="s-total">55</div><div class="vm-stat-l">Total entries</div></div>
+    <div class="vm-stat"><div class="vm-stat-n" id="s-builtin">28</div><div class="vm-stat-l">Built-in (no add-on)</div></div>
+    <div class="vm-stat"><div class="vm-stat-n" id="s-addon">27</div><div class="vm-stat-l">Require add-on</div></div>
+    <div class="vm-stat"><div class="vm-stat-n" id="s-cats">5</div><div class="vm-stat-l">Categories</div></div>
+  </div>
+
+  <input class="vm-search" type="search" placeholder="Search events or alarms…" id="search" oninput="render()" />
+
+  <div class="vm-filter-row">
+    <span class="vm-filter-label">Filter:</span>
+    <button class="vm-chip active" data-cat="all" onclick="setFilter('all')">All</button>
+    <button class="vm-chip" data-cat="Vehicle Issues" onclick="setFilter('Vehicle Issues')">Vehicle issues</button>
+    <button class="vm-chip" data-cat="Driver Issues" onclick="setFilter('Driver Issues')">Driver issues</button>
+    <button class="vm-chip" data-cat="Caused by Driver" onclick="setFilter('Caused by Driver')">Caused by driver</button>
+    <button class="vm-chip" data-cat="External" onclick="setFilter('External')">External</button>
+    <button class="vm-chip" data-cat="System Issues" onclick="setFilter('System Issues')">System issues</button>
+  </div>
+
+  <div id="content"></div>
+</div>
+
+<button class="sticky-edit-btn" id="stickyEditBtn" onclick="toggleEditMode()">
+  <i class="ti ti-edit"></i> Edit mode
+</button>
+
+<!-- Edit / Add Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">Edit entry</span>
+      <button class="modal-close" onclick="closeModal()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Name</label>
+      <input class="form-input" id="f-name" type="text" placeholder="e.g. Camera cover alarm" />
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Type</label>
+        <select class="form-select" id="f-type">
+          <option value="alarm">Alarm</option>
+          <option value="event">Event</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Category</label>
+        <select class="form-select" id="f-cat">
+          <option value="Vehicle Issues">Vehicle Issues</option>
+          <option value="System Issues">System Issues</option>
+          <option value="Driver Issues">Driver Issues</option>
+          <option value="Caused by Driver">Caused by Driver</option>
+          <option value="External">External</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">System(s)</label>
+      <input class="form-input" id="f-system" type="text" placeholder="e.g. DVR, DVR + Platform" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Add-ons required</label>
+      <input class="form-input" id="f-addonNote" type="text" placeholder="e.g. None — built into core DVR" />
+    </div>
+    <div class="form-checkbox-row">
+      <input type="checkbox" id="f-addon" />
+      <label for="f-addon">Requires an add-on</label>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea class="form-textarea" id="f-desc" placeholder="Describe what triggers this event or alarm…"></textarea>
+    </div>
+
+    <div class="flags-section">
+      <div class="flags-section-title">Flags</div>
+
+      <div class="flag-row">
+        <input type="checkbox" id="f-dnu" class="cb-dnu" />
+        <label class="flag-label" for="f-dnu">
+          <span class="flag-pill dnu">🚫 do not use</span>
+          <span class="flag-desc">Marks this entry as excluded — shown with a red dashed border</span>
+        </label>
+      </div>
+
+      <div class="flag-row">
+        <input type="checkbox" id="f-needsTesting" class="cb-test" />
+        <label class="flag-label" for="f-needsTesting">
+          <span class="flag-pill test">⚠ needs testing</span>
+          <span class="flag-desc">Marks this entry as unverified or untriggered in the field</span>
+        </label>
+      </div>
+
+      <div class="flag-row">
+        <input type="checkbox" id="f-potentialDuplicate" class="cb-dup" onchange="toggleDupInput(this)" />
+        <label class="flag-label" for="f-potentialDuplicate">
+          <span class="flag-pill dup">⚠ duplicate of…</span>
+          <span class="flag-desc">Marks this entry as a potential duplicate of another</span>
+        </label>
+      </div>
+      <div class="dup-input-wrap" id="dup-input-wrap">
+        <label class="form-label">Duplicate of (name)</label>
+        <input class="form-input" id="f-duplicateOf" type="text" placeholder="e.g. Emergency alarm" />
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-danger" id="deleteBtn" onclick="deleteEntry()" style="margin-right:auto">Delete entry</button>
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEntry()">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let DATA = [
+  {name:"Camera cover alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Triggered when a camera lens is covered. AI algorithm detects covering across all relevant cameras.",dnu:false},
+  {name:"Abnormal storage alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:true,addonNote:"SD card / HDD storage media",desc:"MDVR or dashcam has detected a failure, corruption, or missing storage media (SD card/HDD).",dnu:false},
+  {name:"Low voltage alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Raised when battery voltage drops below the configured threshold.",dnu:false},
+  {name:"Temperature alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"MDVR and AI dashcams monitor device health or cargo/cabin temperature via connected sensors.",dnu:false},
+  {name:"Abnormal temperature change",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Alarm Type 46 — MDVR internal temperature exceeds safe operating thresholds (typically −40°C to +70°C).",dnu:false},
+  {name:"Abnormal boot alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Triggered under low-power/sleep state by remote wake (calls, SMS, app), I/O wake, or accelerometer.",dnu:false},
+  {name:"Rolling stop alarm",type:"alarm",cat:"Vehicle Issues",system:"ADAS",addon:false,addonNote:"None — purely ADAS",desc:"Detects failure to come to a complete halt at a required stop. Uses built-in 6-axis G-sensor and GPS speed. Triggers if vehicle passes a stop sign without stopping.",dnu:false},
+  {name:"Geo-fence alarm",type:"alarm",cat:"System Issues",system:"DVR + Platform",addon:false,addonNote:"GPS built-in; geo-fence rules set on platform",desc:"Raised when a vehicle enters or exits a geographic boundary. Must co-work with client app.",dnu:false},
+  {name:"Video loss alarm",type:"alarm",cat:"System Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Fires per channel when a camera feed is lost (e.g. damaged camera or cable). See Video Alarms > Video Loss.",dnu:false},
+  {name:"Driver fatigue",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DMS camera (e.g. C29N) required",desc:"Detected by the external DMS camera. Triggers when eyes are closed for a defined duration. Configurable by speed threshold.",dnu:false},
+  {name:"Yawning detection",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Detected when mouth is open for a defined period. Configurable by speed threshold.",dnu:false},
+  {name:"Tiredness",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Pre-built into driver fatigue, operates by blink-rate. Configurable by speed threshold. (TBC — attempting to separate from fatigue.)",dnu:false},
+  {name:"Driver distraction",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Triggered when driver's gaze leaves the road. Includes judgement level and distraction level (up, down, left, right). Configurable by speed threshold.",dnu:false},
+  {name:"Phone detection",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Detected when phone is in hand and in use for a defined duration. Configurable by speed threshold.",dnu:false},
+  {name:"Smoking detection",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Detected when a smoking action is detected for a defined duration. Configurable by speed threshold.",dnu:false},
+  {name:"No driver",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Raised when vehicle is in motion but no driver is detected. Also indicates camera tampering if camera is moved away from the driver seat. Configurable by speed threshold.",dnu:false},
+  {name:"Unrecognised driver",type:"event",cat:"Driver Issues",system:"DVR + Platform",addon:true,addonNote:"DSC built-in or DMS camera; face library on platform",desc:"Driver face does not match an enrolled profile. Requires Face Compare function with FT Cloud platform.",dnu:false},
+  {name:"No seat belt",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Detected when seat belt is not fastened for a defined duration. Configurable by speed threshold.",dnu:false},
+  {name:"Over-mileage / speeding alarm",type:"event",cat:"Driver Issues",system:"DVR + Platform",addon:false,addonNote:"GPS/odometer built-in; mileage rules set on platform",desc:"Alert when a vehicle exceeds a configured mileage allowance. Based on GPS data.",dnu:false},
+  {name:"Impeding violation",type:"event",cat:"Driver Issues",system:"DVR",addon:false,addonNote:"None — uses built-in GPS speed",desc:"Detects driving significantly below the speed limit using GPS. Note: needs further testing — never yet triggered.",dnu:false,needsTesting:true},
+  {name:"Left BSD warning",type:"alarm",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD left-side camera required",desc:"Amber VRU warning on the left side. Level I at 2–3 m distance. Requires external BSD camera.",dnu:false},
+  {name:"Left BSD alarm",type:"alarm",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD left-side camera required",desc:"Red VRU danger zone on the left side (1–2 m or 0–1 m). Audible/visual alarm B1/B2 can be linked.",dnu:false},
+  {name:"Right BSD warning",type:"alarm",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD right-side camera required",desc:"Amber VRU warning on the right side. Level I at 2–3 m from vehicle body. Requires external BSD camera.",dnu:false},
+  {name:"Right BSD alarm",type:"alarm",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD right-side camera required",desc:"Red VRU danger zone on the right side (1–2 m or 0–1 m). Triggers audible/visual alarm B1/B2 when linked.",dnu:false},
+  {name:"Forward blind area",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD front camera and 360°",desc:"VRU detected in forward blind zone. Red zone alert unless stationary (amber when stationary). Listed under BSD AI Alarms.",dnu:false},
+  {name:"Behind blind area",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD front camera and 360°",desc:"VRU detected in rearward blind zone. Requires a rear or 360° camera add-on.",dnu:false},
+  {name:"Lane departure",type:"event",cat:"Caused by Driver",system:"DVR",addon:true,addonNote:"ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",desc:"Triggered when vehicle veers off solid or dotted lanes. Indicator cancellation: activating the indicator suppresses the alert.",dnu:false},
+  {name:"High-speed alarm",type:"alarm",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — built-in GPS speed",desc:"Triggered when speed exceeds the Level 2 speed threshold. See Basic Alarms > Speed Alarm.",dnu:false},
+  {name:"Excessive G-force event",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Parent event for all G-force exceedances. Uses ACCEL2 algorithm. Includes shock/collision detection.",dnu:false},
+  {name:"Excessive G-force / harsh braking",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Harsh braking trigger within ACCEL2. Offset values are vehicle-tonnage dependent.",dnu:false},
+  {name:"Excessive G-force / harsh acceleration",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Hard acceleration trigger within ACCEL2. Longitudinal acceleration exceedance.",dnu:false},
+  {name:"Excessive G-force / harsh right turn",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Harsh right turn within ACCEL2. Lateral G-force exceedance on right cornering.",dnu:false},
+  {name:"Excessive G-force / harsh left turn",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Harsh left turn within ACCEL2. Lateral G-force exceedance on left cornering.",dnu:false},
+  {name:"Illegal shutdown",type:"alarm",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — ACC/ignition monitoring built-in",desc:"Triggered when the device is powered off outside the configured ignition or timing shutdown procedure.",dnu:false},
+  {name:"Forward collision warning",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",desc:"Time-to-collision (TTC) based alert calculated from current speed. Configurable by speed threshold.",dnu:false},
+  {name:"Motion detection alarm",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Triggered by pixel-change detection on any camera channel when the vehicle is stationary. Configured via IO Alarm settings.",dnu:false},
+  {name:"Left blind spot detection",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"BSD left-side camera required",desc:"General left-side BSD detection listed under BSD AI Alarms. Potential overlap with left BSD warning/alarm entries.",dnu:false,potentialDuplicate:true,duplicateOf:"BSD warning & alarm"},
+  {name:"Right blind spot detection",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"BSD right-side camera required",desc:"General right-side BSD detection listed under BSD AI Alarms. Potential overlap with right BSD warning/alarm entries.",dnu:false,potentialDuplicate:true,duplicateOf:"BSD warning & alarm"},
+  {name:"Tailgating",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",desc:"Measured by gap distance to the vehicle ahead. Triggers when the gap drops below 2.5 seconds at current speed.",dnu:false},
+  {name:"Emergency alarm",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"Panel button built-in",desc:"Triggered by pressing the built-in panel button to record an incident event manually.",dnu:false},
+  {name:"Emergency alarm / video tag",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Triggered by pressing the built-in panel button. Duplicate of emergency alarm — used for manual video tagging.",dnu:false,potentialDuplicate:true,duplicateOf:"Emergency alarm"},
+  {name:"Pedestrian collision warning",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",desc:"PCW — AI detects pedestrians in the vehicle's path and triggers an audible alarm to help avoid an accident.",dnu:false},
+  {name:"Customised alarm",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"IO inputs built-in (up to 4 IO; 8 with UPS power box)",desc:"Configured via IO Alarm. Up to 8 sensor inputs, fully customisable.",dnu:false},
+  {name:"Idle alarm",type:"alarm",cat:"External",system:"DVR + Platform",addon:false,addonNote:"ACC/ignition monitoring built-in",desc:"Raised when engine idles beyond a configured duration. Shutdown delay is configurable to avoid false triggers at traffic lights.",dnu:false},
+  {name:"Low bridge collision warning",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Low bridge detection system — Exeros add-on",desc:"Active collision warning when bridge clearance is less than vehicle height. Separate Exeros add-on system.",dnu:false},
+  {name:"Low bridge nearby",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"Low bridge detection system — Exeros add-on",desc:"Stage 1 of low bridge detection. AI sign reading identifies a low bridge ahead. Separate Exeros system.",dnu:false},
+  {name:"Low bridge alarm",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Low bridge detection system — Exeros add-on",desc:"Stage 3: confirmed collision risk — vehicle height exceeds bridge clearance. Separate Exeros system.",dnu:false},
+  {name:"Low bridge OK",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"Low bridge detection system — Exeros add-on",desc:"Resolution event: vehicle passed a flagged low bridge without incident. Separate Exeros system.",dnu:false},
+  {name:"Left radar alarm",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Left-side radar sensor unit — add-on",desc:"Object detected by a dedicated radar unit on the left side. Not in AD Plus2.0 manual — separate add-on sensor.",dnu:true},
+  {name:"Right radar alarm",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Right-side radar sensor unit — add-on",desc:"Object detected by a dedicated radar unit on the right side. Not in AD Plus2.0 manual — separate add-on sensor.",dnu:true},
+  {name:"Rear radar alarm",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Rear radar sensor unit — add-on",desc:"Object detected by a rear-mounted radar unit. Not in AD Plus2.0 manual — separate add-on sensor.",dnu:true},
+  {name:"Front panel alarm",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"None — panel button built-in",desc:"Hardware alarm from DVR front panel button. See Basic Alarms > Panel Alarm. Trigger time 1–255s. Hardware-specific.",dnu:true},
+];
+
+const CAT_META = {
+  "Vehicle Issues":   {cls:"badge-vehicle", dot:"var(--cat-vehicle-dot)", titleColor:"var(--cat-vehicle-text)"},
+  "Driver Issues":    {cls:"badge-driver",  dot:"var(--cat-driver-dot)",  titleColor:"var(--cat-driver-text)"},
+  "Caused by Driver": {cls:"badge-caused",  dot:"var(--cat-caused-dot)",  titleColor:"var(--cat-caused-text)"},
+  "External":         {cls:"badge-external",dot:"var(--cat-external-dot)",titleColor:"var(--cat-external-text)"},
+  "System Issues":    {cls:"badge-system",  dot:"var(--cat-system-dot)",  titleColor:"var(--cat-system-text)"},
+};
+const CAT_ORDER = ["Vehicle Issues","System Issues","Driver Issues","Caused by Driver","External"];
+
+let activeFilter = "all";
+let editModeOn = false;
+let editingIndex = null;
+let hasChanges = false;
+
+function setFilter(cat) {
+  activeFilter = cat;
+  document.querySelectorAll('.vm-chip').forEach(c => c.classList.remove('active'));
+  document.querySelector(`.vm-chip[data-cat="${cat}"]`).classList.add('active');
+  render();
+}
+
+function toggleEditMode() {
+  editModeOn = !editModeOn;
+  const btn = document.getElementById('editToggle');
+  const stickyBtn = document.getElementById('stickyEditBtn');
+  const label = editModeOn
+    ? '<i class="ti ti-edit-off"></i> Exit edit mode'
+    : '<i class="ti ti-edit"></i> Edit mode';
+  btn.classList.toggle('active', editModeOn);
+  btn.innerHTML = label;
+  stickyBtn.classList.toggle('active', editModeOn);
+  stickyBtn.innerHTML = label;
+
+  const title = document.getElementById('page-title');
+  const subtitle = document.getElementById('page-subtitle');
+
+  if (editModeOn) {
+    // entering edit mode — snapshot current values
+    title._snapshot = title.innerText;
+    subtitle._snapshot = subtitle.innerText;
+    title.contentEditable = 'true';
+    subtitle.contentEditable = 'true';
+    title.classList.add('editable-active');
+    subtitle.classList.add('editable-active');
+  } else {
+    // exiting edit mode — only flag changes if text actually changed
+    title.contentEditable = 'false';
+    subtitle.contentEditable = 'false';
+    title.classList.remove('editable-active');
+    subtitle.classList.remove('editable-active');
+    if (title.innerText !== title._snapshot || subtitle.innerText !== subtitle._snapshot) {
+      hasChanges = true;
+      document.getElementById('exportBar').classList.add('visible');
+    }
+  }
+  render();
+}
+
+function toggleDupInput(cb) {
+  document.getElementById('dup-input-wrap').classList.toggle('visible', cb.checked);
+}
+
+function escHTML(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function updateStats() {
+  document.getElementById('s-total').textContent = DATA.length;
+  document.getElementById('s-builtin').textContent = DATA.filter(d => !d.addon).length;
+  document.getElementById('s-addon').textContent = DATA.filter(d => d.addon).length;
+  document.getElementById('s-cats').textContent = new Set(DATA.map(d => d.cat)).size;
+}
+
+function render() {
+  const q = (document.getElementById('search').value || '').toLowerCase();
+  const filtered = DATA.map((d,i) => ({...d, _idx: i})).filter(d => {
+    const matchCat = activeFilter === 'all' || d.cat === activeFilter;
+    const matchQ = !q || d.name.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q) || d.addonNote.toLowerCase().includes(q) || d.cat.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+
+  updateStats();
+
+  const byCat = {};
+  CAT_ORDER.forEach(c => { byCat[c] = []; });
+  filtered.forEach(d => { if(byCat[d.cat]) byCat[d.cat].push(d); });
+
+  let html = '';
+  let anyResults = false;
+
+  CAT_ORDER.forEach(cat => {
+    const items = byCat[cat];
+    if (!items || items.length === 0) return;
+    anyResults = true;
+    const meta = CAT_META[cat];
+    html += `<div class="vm-section">
+      <div class="vm-section-head">
+        <div class="vm-section-dot" style="background:${meta.dot}"></div>
+        <span class="vm-section-title" style="color:${meta.titleColor}">${escHTML(cat)}</span>
+        <span class="vm-section-count">${items.length} ${items.length===1?'entry':'entries'}</span>
+      </div>
+      <div class="vm-grid">`;
+
+    items.forEach(d => {
+      const clickAttr = editModeOn ? `onclick="openEdit(${d._idx})"` : '';
+      html += `<div class="vm-card${d.dnu?' flagged':''}${editModeOn?' edit-mode':''}" ${clickAttr}>
+        <div class="vm-card-top">
+          <div class="vm-card-name">${escHTML(d.name)}</div>
+          <div class="vm-card-badges">
+            <span class="vm-card-badge ${meta.cls}">${d.type}</span>
+            ${d.dnu ? '<span class="vm-dnu-badge">do not use</span>' : ''}
+            ${d.needsTesting ? '<span class="vm-testing-badge">needs testing</span>' : ''}
+            ${d.potentialDuplicate ? `<span class="vm-duplicate-badge" title="Potential duplicate of ${d.duplicateOf || 'BSD warning &amp; alarm'}">⚠ duplicate of ${d.duplicateOf || 'BSD warning &amp; alarm'}</span>` : ''}
+          </div>
+        </div>
+        <div class="vm-card-desc">${escHTML(d.desc)}</div>
+        <div class="vm-card-meta">
+          <div class="vm-meta-row">
+            <span class="vm-meta-label">Add-ons</span>
+            <span class="vm-meta-value ${d.addon ? 'addon-required' : 'addon-builtin'}">
+              <i class="ti ${d.addon ? 'ti-puzzle' : 'ti-circle-check'}"></i>
+              <span>${d.addon ? 'Required' : 'Built-in'}</span>
+              <span class="addon-detail">— ${escHTML(d.addonNote)}</span>
+            </span>
+          </div>
+          <div class="vm-meta-row">
+            <span class="vm-meta-label">System</span>
+            <span class="vm-meta-value"><span class="vm-tag">${escHTML(d.system)}</span></span>
+          </div>
+        </div>
+        ${editModeOn ? '<span class="edit-hint"><i class="ti ti-pencil"></i> click to edit</span>' : ''}
+      </div>`;
+    });
+
+    if (editModeOn) {
+      html += `<button class="add-card-btn visible" onclick="openAdd('${escHTML(cat)}')">
+        <i class="ti ti-plus"></i> Add entry to ${escHTML(cat)}
+      </button>`;
+    }
+
+    html += '</div></div>';
+  });
+
+  if (!anyResults) {
+    html = `<div class="vm-empty"><i class="ti ti-search"></i>No entries match "${escHTML(q)}"</div>`;
+  }
+  document.getElementById('content').innerHTML = html;
+}
+
+function openEdit(idx) {
+  const d = DATA[idx];
+  editingIndex = idx;
+  document.getElementById('modalTitle').textContent = 'Edit entry';
+  document.getElementById('deleteBtn').style.display = 'inline-flex';
+  document.getElementById('f-name').value = d.name;
+  document.getElementById('f-type').value = d.type;
+  document.getElementById('f-cat').value = d.cat;
+  document.getElementById('f-system').value = d.system;
+  document.getElementById('f-addonNote').value = d.addonNote;
+  document.getElementById('f-addon').checked = d.addon;
+  document.getElementById('f-desc').value = d.desc;
+  document.getElementById('f-dnu').checked = d.dnu;
+  document.getElementById('f-needsTesting').checked = d.needsTesting || false;
+  document.getElementById('f-potentialDuplicate').checked = d.potentialDuplicate || false;
+  document.getElementById('f-duplicateOf').value = d.duplicateOf || '';
+  document.getElementById('dup-input-wrap').classList.toggle('visible', d.potentialDuplicate || false);
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function openAdd(cat) {
+  editingIndex = null;
+  document.getElementById('modalTitle').textContent = 'Add new entry';
+  document.getElementById('deleteBtn').style.display = 'none';
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-type').value = 'alarm';
+  document.getElementById('f-cat').value = cat || 'External';
+  document.getElementById('f-system').value = 'DVR';
+  document.getElementById('f-addonNote').value = 'None — built into core DVR';
+  document.getElementById('f-addon').checked = false;
+  document.getElementById('f-desc').value = '';
+  document.getElementById('f-dnu').checked = false;
+  document.getElementById('f-needsTesting').checked = false;
+  document.getElementById('f-potentialDuplicate').checked = false;
+  document.getElementById('f-duplicateOf').value = '';
+  document.getElementById('dup-input-wrap').classList.remove('visible');
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  editingIndex = null;
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function saveEntry() {
+  const entry = {
+    name: document.getElementById('f-name').value.trim(),
+    type: document.getElementById('f-type').value,
+    cat: document.getElementById('f-cat').value,
+    system: document.getElementById('f-system').value.trim(),
+    addonNote: document.getElementById('f-addonNote').value.trim(),
+    addon: document.getElementById('f-addon').checked,
+    desc: document.getElementById('f-desc').value.trim(),
+    dnu: document.getElementById('f-dnu').checked,
+    needsTesting: document.getElementById('f-needsTesting').checked,
+    potentialDuplicate: document.getElementById('f-potentialDuplicate').checked,
+    duplicateOf: document.getElementById('f-duplicateOf').value.trim() || undefined,
+  };
+  if (!entry.name) { alert('Please enter a name.'); return; }
+  if (editingIndex !== null) {
+    DATA[editingIndex] = entry;
+  } else {
+    DATA.push(entry);
+  }
+  hasChanges = true;
+  document.getElementById('exportBar').classList.add('visible');
+  closeModal();
+  render();
+}
+
+function deleteEntry() {
+  if (editingIndex === null) return;
+  if (!confirm('Delete "' + DATA[editingIndex].name + '"? This cannot be undone.')) return;
+  DATA.splice(editingIndex, 1);
+  hasChanges = true;
+  document.getElementById('exportBar').classList.add('visible');
+  closeModal();
+  render();
+}
+
+function exportHTML() {
+  const dataJSON = JSON.stringify(DATA, null, 2);
+  const src = document.documentElement.outerHTML;
+  const updated = src.replace(/^let DATA = \[[\s\S]*?\];/m, 'let DATA = ' + dataJSON + ';');
+  const blob = new Blob([updated], {type: 'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'videomatics_events_alarms.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  hasChanges = false;
+  document.getElementById('exportBar').classList.remove('visible');
+}
+
+render();
+
+// Show sticky edit button only when header button scrolls out of view
+const editToggleEl = document.getElementById('editToggle');
+const stickyBtnEl  = document.getElementById('stickyEditBtn');
+const observer = new IntersectionObserver(
+  ([entry]) => stickyBtnEl.classList.toggle('visible', !entry.isIntersecting),
+  { threshold: 0 }
+);
+observer.observe(editToggleEl);
+</script>
+</body>
+</html>
