@@ -363,22 +363,10 @@
     <button class="vm-chip" data-cat="Caused by Driver" onclick="setFilter('Caused by Driver')">Caused by driver</button>
     <button class="vm-chip" data-cat="External" onclick="setFilter('External')">External</button>
     <button class="vm-chip" data-cat="System Issues" onclick="setFilter('System Issues')">System issues</button>
-  </div>
-
-  <div class="vm-legend">
-    <span class="vm-legend-label">Key:</span>
-    <div class="vm-legend-item">
-      <span class="vm-legend-badge vm-dnu-badge">🚫 do not use</span>
-      <span>Entry should not be used</span>
-    </div>
-    <div class="vm-legend-item">
-      <span class="vm-legend-badge vm-testing-badge">⚠ needs testing</span>
-      <span>Unverified — never triggered</span>
-    </div>
-    <div class="vm-legend-item">
-      <span class="vm-legend-badge vm-duplicate-badge">⚠ duplicate of…</span>
-      <span>Potential duplicate of another entry</span>
-    </div>
+    <span class="vm-filter-label" style="margin-left:8px">Flags:</span>
+    <button class="vm-chip" data-flag="dnu" onclick="setFlag('dnu')" style="background:var(--dnu-bg);color:var(--dnu-text);border-color:rgba(157,111,255,0.4)">🚫 Do not use</button>
+    <button class="vm-chip" data-flag="needsTesting" onclick="setFlag('needsTesting')" style="background:rgba(255,170,0,0.12);color:#ffaa00;border-color:rgba(255,170,0,0.4)">⚠ Needs testing</button>
+    <button class="vm-chip" data-flag="potentialDuplicate" onclick="setFlag('potentialDuplicate')" style="background:rgba(139,233,253,0.1);color:#8be9fd;border-color:rgba(139,233,253,0.35)">⚠ Duplicates</button>
   </div>
 
   <div id="content"></div>
@@ -1033,8 +1021,23 @@ let hasChanges = false;
 
 function setFilter(cat) {
   activeFilter = cat;
+  activeFlag = null;
   document.querySelectorAll('.vm-chip').forEach(c => c.classList.remove('active'));
   document.querySelector(`.vm-chip[data-cat="${cat}"]`).classList.add('active');
+  render();
+}
+
+function setFlag(flag) {
+  if (activeFlag === flag) {
+    activeFlag = null;
+    document.querySelectorAll('.vm-chip[data-flag]').forEach(c => c.classList.remove('active'));
+  } else {
+    activeFlag = flag;
+    activeFilter = 'all';
+    document.querySelectorAll('.vm-chip').forEach(c => c.classList.remove('active'));
+    document.querySelector(`.vm-chip[data-cat="all"]`).classList.add('active');
+    document.querySelector(`.vm-chip[data-flag="${flag}"]`).classList.add('active');
+  }
   render();
 }
 
@@ -1138,7 +1141,8 @@ function render() {
   const filtered = DATA.map((d,i) => ({...d, _idx: i})).filter(d => {
     const matchCat = activeFilter === 'all' || d.cat === activeFilter;
     const matchQ = !q || d.name.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q) || d.addonNote.toLowerCase().includes(q) || d.cat.toLowerCase().includes(q);
-    return matchCat && matchQ;
+    const matchFlag = !activeFlag || d[activeFlag] === true;
+    return matchCat && matchQ && matchFlag;
   });
 
   updateStats();
