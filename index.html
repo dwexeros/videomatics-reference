@@ -67,7 +67,7 @@
 
   /* ── Header ── */
   .vm-header { margin-bottom: 2rem; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-  .vm-header-text h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; color: var(--drac-purple); }
+  .vm-header-text h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; color: var(--drac-purple); }
   .vm-header-text p { font-size: 13px; color: var(--drac-fg-muted); }
   [contenteditable] { outline: none; border-radius: 4px; transition: background 0.15s, box-shadow 0.15s; }
   [contenteditable].editable-active { background: rgba(157,111,255,0.08); box-shadow: 0 0 0 1.5px var(--drac-purple); padding: 2px 6px; cursor: text; }
@@ -330,7 +330,7 @@
 <div class="page">
   <div class="vm-header">
     <div class="vm-header-text">
-      <h1 id="page-title" contenteditable="false" data-placeholder="Page title" spellcheck="false">VideMatics — events & alarms list</h1>
+      <h1 id="page-title" contenteditable="false" data-placeholder="Page title" spellcheck="false">VideMatics — events &amp; alarms reference</h1>
       <p id="page-subtitle" contenteditable="false" data-placeholder="Subtitle" spellcheck="false">Configuration guide for DVR platform events, AI alarms, and driver behaviour detection</p>
     </div>
     <button class="edit-toggle" id="editToggle" onclick="toggleEditMode()">
@@ -463,533 +463,58 @@ const WORKER_URL = 'https://vidematics-proxy.david-wong-fd0.workers.dev';
 
 /*DATA_START*/
 let DATA = [
-  {
-    "name": "Camera cover alarm",
-    "type": "alarm",
-    "cat": "Vehicle Issues",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "Triggered when a camera lens is covered. AI algorithm detects covering across all relevant cameras.",
-    "dnu": false
-  },
-  {
-    "name": "Abnormal storage alarm",
-    "type": "alarm",
-    "cat": "Vehicle Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "SD card / HDD storage media",
-    "desc": "MDVR or dashcam has detected a failure, corruption, or missing storage media (SD card/HDD).",
-    "dnu": false
-  },
-  {
-    "name": "Low voltage alarm",
-    "type": "alarm",
-    "cat": "Vehicle Issues",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "Raised when battery voltage drops below the configured threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Temperature alarm",
-    "type": "alarm",
-    "cat": "Vehicle Issues",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "MDVR and AI dashcams monitor device health or cargo/cabin temperature via connected sensors.",
-    "dnu": false
-  },
-  {
-    "name": "Abnormal temperature change",
-    "type": "alarm",
-    "cat": "Vehicle Issues",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "Alarm Type 46 — MDVR internal temperature exceeds safe operating thresholds (typically −40°C to +70°C).",
-    "dnu": false
-  },
-  {
-    "name": "Abnormal boot alarm",
-    "type": "alarm",
-    "cat": "Vehicle Issues",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "Triggered under low-power/sleep state by remote wake (calls, SMS, app), I/O wake, or accelerometer.",
-    "dnu": false
-  },
-  {
-    "name": "Rolling stop alarm",
-    "type": "alarm",
-    "cat": "Vehicle Issues",
-    "system": "ADAS",
-    "addon": false,
-    "addonNote": "None — purely ADAS",
-    "desc": "Detects failure to come to a complete halt at a required stop. Uses built-in 6-axis G-sensor and GPS speed. Triggers if vehicle passes a stop sign without stopping.",
-    "dnu": false
-  },
-  {
-    "name": "Geo-fence alarm",
-    "type": "alarm",
-    "cat": "System Issues",
-    "system": "DVR + Platform",
-    "addon": false,
-    "addonNote": "GPS built-in; geo-fence rules set on platform",
-    "desc": "Raised when a vehicle enters or exits a geographic boundary. Must co-work with client app.",
-    "dnu": false
-  },
-  {
-    "name": "Video loss alarm",
-    "type": "alarm",
-    "cat": "System Issues",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "Fires per channel when a camera feed is lost (e.g. damaged camera or cable). See Video Alarms > Video Loss.",
-    "dnu": false
-  },
-  {
-    "name": "Driver fatigue",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DMS camera (e.g. C29N) required",
-    "desc": "Detected by the external DMS camera. Triggers when eyes are closed for a defined duration. Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Yawning detection",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DSC built-in (AD Plus2.0 only) or DMS camera add-on",
-    "desc": "Detected when mouth is open for a defined period. Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Tiredness",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DSC built-in (AD Plus2.0 only) or DMS camera add-on",
-    "desc": "Pre-built into driver fatigue, operates by blink-rate. Configurable by speed threshold. (TBC — attempting to separate from fatigue.)",
-    "dnu": false
-  },
-  {
-    "name": "Driver distraction",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DSC built-in (AD Plus2.0 only) or DMS camera add-on",
-    "desc": "Triggered when driver's gaze leaves the road. Includes judgement level and distraction level (up, down, left, right). Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Phone detection",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DSC built-in (AD Plus2.0 only) or DMS camera add-on",
-    "desc": "Detected when phone is in hand and in use for a defined duration. Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Smoking detection",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DSC built-in (AD Plus2.0 only) or DMS camera add-on",
-    "desc": "Detected when a smoking action is detected for a defined duration. Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "No driver",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DSC built-in (AD Plus2.0 only) or DMS camera add-on",
-    "desc": "Raised when vehicle is in motion but no driver is detected. Also indicates camera tampering if camera is moved away from the driver seat. Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Unrecognised driver",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR + Platform",
-    "addon": true,
-    "addonNote": "DSC built-in or DMS camera; face library on platform",
-    "desc": "Driver face does not match an enrolled profile. Requires Face Compare function with FT Cloud platform.",
-    "dnu": false
-  },
-  {
-    "name": "No seat belt",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DSC built-in (AD Plus2.0 only) or DMS camera add-on",
-    "desc": "Detected when seat belt is not fastened for a defined duration. Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Over-mileage / speeding alarm",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR + Platform",
-    "addon": false,
-    "addonNote": "GPS/odometer built-in; mileage rules set on platform",
-    "desc": "Alert when a vehicle exceeds a configured mileage allowance. Based on GPS data.",
-    "dnu": false
-  },
-  {
-    "name": "Impeding violation",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — uses built-in GPS speed",
-    "desc": "Detects driving significantly below the speed limit using GPS. Note: needs further testing — never yet triggered.",
-    "dnu": false,
-    "needsTesting": true
-  },
-  {
-    "name": "Left BSD warning",
-    "type": "alarm",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD left-side camera required",
-    "desc": "Amber VRU warning on the left side. Level I at 2–3 m distance. Requires external BSD camera.",
-    "dnu": false
-  },
-  {
-    "name": "Left BSD alarm",
-    "type": "alarm",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD left-side camera required",
-    "desc": "Red VRU danger zone on the left side (1–2 m or 0–1 m). Audible/visual alarm B1/B2 can be linked.",
-    "dnu": false
-  },
-  {
-    "name": "Right BSD warning",
-    "type": "alarm",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD right-side camera required",
-    "desc": "Amber VRU warning on the right side. Level I at 2–3 m from vehicle body. Requires external BSD camera.",
-    "dnu": false
-  },
-  {
-    "name": "Right BSD alarm",
-    "type": "alarm",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD right-side camera required",
-    "desc": "Red VRU danger zone on the right side (1–2 m or 0–1 m). Triggers audible/visual alarm B1/B2 when linked.",
-    "dnu": false
-  },
-  {
-    "name": "Forward blind area",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD front camera and 360°",
-    "desc": "VRU detected in forward blind zone. Red zone alert unless stationary (amber when stationary). Listed under BSD AI Alarms.",
-    "dnu": false
-  },
-  {
-    "name": "Behind blind area",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD front camera and 360°",
-    "desc": "VRU detected in rearward blind zone. Requires a rear or 360° camera add-on.",
-    "dnu": false
-  },
-  {
-    "name": "Lane departure",
-    "type": "event",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",
-    "desc": "Triggered when vehicle veers off solid or dotted lanes. Indicator cancellation: activating the indicator suppresses the alert.",
-    "dnu": false
-  },
-  {
-    "name": "High-speed alarm",
-    "type": "alarm",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built-in GPS speed",
-    "desc": "Triggered when speed exceeds the Level 2 speed threshold. See Basic Alarms > Speed Alarm.",
-    "dnu": false
-  },
-  {
-    "name": "Excessive G-force event",
-    "type": "event",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — 6-axis G-sensor built-in",
-    "desc": "Parent event for all G-force exceedances. Uses ACCEL2 algorithm. Includes shock/collision detection.",
-    "dnu": false
-  },
-  {
-    "name": "Excessive G-force / harsh braking",
-    "type": "event",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — 6-axis G-sensor built-in",
-    "desc": "Harsh braking trigger within ACCEL2. Offset values are vehicle-tonnage dependent.",
-    "dnu": false
-  },
-  {
-    "name": "Excessive G-force / harsh acceleration",
-    "type": "event",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — 6-axis G-sensor built-in",
-    "desc": "Hard acceleration trigger within ACCEL2. Longitudinal acceleration exceedance.",
-    "dnu": false
-  },
-  {
-    "name": "Excessive G-force / harsh right turn",
-    "type": "event",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — 6-axis G-sensor built-in",
-    "desc": "Harsh right turn within ACCEL2. Lateral G-force exceedance on right cornering.",
-    "dnu": false
-  },
-  {
-    "name": "Excessive G-force / harsh left turn",
-    "type": "event",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — 6-axis G-sensor built-in",
-    "desc": "Harsh left turn within ACCEL2. Lateral G-force exceedance on left cornering.",
-    "dnu": false
-  },
-  {
-    "name": "Illegal shutdown",
-    "type": "alarm",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — ACC/ignition monitoring built-in",
-    "desc": "Triggered when the device is powered off outside the configured ignition or timing shutdown procedure.",
-    "dnu": false
-  },
-  {
-    "name": "Forward collision warning",
-    "type": "event",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",
-    "desc": "Time-to-collision (TTC) based alert calculated from current speed. Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Motion detection alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "Triggered by pixel-change detection on any camera channel when the vehicle is stationary. Configured via IO Alarm settings.",
-    "dnu": false
-  },
-  {
-    "name": "Left blind spot detection",
-    "type": "event",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD left-side camera required",
-    "desc": "General left-side BSD detection listed under BSD AI Alarms. Potential overlap with left BSD warning/alarm entries.",
-    "dnu": false,
-    "potentialDuplicate": true,
-    "duplicateOf": "BSD warning & alarm"
-  },
-  {
-    "name": "Right blind spot detection",
-    "type": "event",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD right-side camera required",
-    "desc": "General right-side BSD detection listed under BSD AI Alarms. Potential overlap with right BSD warning/alarm entries.",
-    "dnu": false,
-    "potentialDuplicate": true,
-    "duplicateOf": "BSD warning & alarm"
-  },
-  {
-    "name": "Tailgating",
-    "type": "event",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",
-    "desc": "Measured by gap distance to the vehicle ahead. Triggers when the gap drops below 2.5 seconds at current speed.",
-    "dnu": false
-  },
-  {
-    "name": "Emergency alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "Panel button built-in",
-    "desc": "Triggered by pressing the built-in panel button to record an incident event manually.",
-    "dnu": false
-  },
-  {
-    "name": "Emergency alarm / video tag",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "Triggered by pressing the built-in panel button. Duplicate of emergency alarm — used for manual video tagging.",
-    "dnu": false,
-    "potentialDuplicate": true,
-    "duplicateOf": "Emergency alarm"
-  },
-  {
-    "name": "Pedestrian collision warning",
-    "type": "event",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",
-    "desc": "PCW — AI detects pedestrians in the vehicle's path and triggers an audible alarm to help avoid an accident.",
-    "dnu": false
-  },
-  {
-    "name": "Customised alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "IO inputs built-in (up to 4 IO; 8 with UPS power box)",
-    "desc": "Configured via IO Alarm. Up to 8 sensor inputs, fully customisable.",
-    "dnu": false
-  },
-  {
-    "name": "Idle alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR + Platform",
-    "addon": false,
-    "addonNote": "ACC/ignition monitoring built-in",
-    "desc": "Raised when engine idles beyond a configured duration. Shutdown delay is configurable to avoid false triggers at traffic lights.",
-    "dnu": false
-  },
-  {
-    "name": "Low bridge collision warning",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "Low bridge detection system — Exeros add-on",
-    "desc": "Active collision warning when bridge clearance is less than vehicle height. Separate Exeros add-on system.",
-    "dnu": false
-  },
-  {
-    "name": "Low bridge nearby",
-    "type": "event",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "Low bridge detection system — Exeros add-on",
-    "desc": "Stage 1 of low bridge detection. AI sign reading identifies a low bridge ahead. Separate Exeros system.",
-    "dnu": false
-  },
-  {
-    "name": "Low bridge alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "Low bridge detection system — Exeros add-on",
-    "desc": "Stage 3: confirmed collision risk — vehicle height exceeds bridge clearance. Separate Exeros system.",
-    "dnu": false
-  },
-  {
-    "name": "Low bridge OK",
-    "type": "event",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "Low bridge detection system — Exeros add-on",
-    "desc": "Resolution event: vehicle passed a flagged low bridge without incident. Separate Exeros system.",
-    "dnu": false
-  },
-  {
-    "name": "Left radar alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "Left-side radar sensor unit — add-on",
-    "desc": "Object detected by a dedicated radar unit on the left side. Not in AD Plus2.0 manual — separate add-on sensor.",
-    "dnu": true
-  },
-  {
-    "name": "Right radar alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "Right-side radar sensor unit — add-on",
-    "desc": "Object detected by a dedicated radar unit on the right side. Not in AD Plus2.0 manual — separate add-on sensor.",
-    "dnu": true
-  },
-  {
-    "name": "Rear radar alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "Rear radar sensor unit — add-on",
-    "desc": "Object detected by a rear-mounted radar unit. Not in AD Plus2.0 manual — separate add-on sensor.",
-    "dnu": true
-  },
-  {
-    "name": "Front panel alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — panel button built-in",
-    "desc": "Hardware alarm from DVR front panel button. See Basic Alarms > Panel Alarm. Trigger time 1–255s. Hardware-specific.",
-    "dnu": true
-  }
+  {name:"Camera cover alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Triggered when a camera lens is covered. AI algorithm detects covering across all relevant cameras.",dnu:false},
+  {name:"Abnormal storage alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:true,addonNote:"SD card / HDD storage media",desc:"MDVR or dashcam has detected a failure, corruption, or missing storage media (SD card/HDD).",dnu:false},
+  {name:"Low voltage alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Raised when battery voltage drops below the configured threshold.",dnu:false},
+  {name:"Temperature alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"MDVR and AI dashcams monitor device health or cargo/cabin temperature via connected sensors.",dnu:false},
+  {name:"Abnormal temperature change",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Alarm Type 46 — MDVR internal temperature exceeds safe operating thresholds (typically −40°C to +70°C).",dnu:false},
+  {name:"Abnormal boot alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Triggered under low-power/sleep state by remote wake (calls, SMS, app), I/O wake, or accelerometer.",dnu:false},
+  {name:"Rolling stop alarm",type:"alarm",cat:"Vehicle Issues",system:"ADAS",addon:false,addonNote:"None — purely ADAS",desc:"Detects failure to come to a complete halt at a required stop. Uses built-in 6-axis G-sensor and GPS speed. Triggers if vehicle passes a stop sign without stopping.",dnu:false},
+  {name:"Geo-fence alarm",type:"alarm",cat:"System Issues",system:"DVR + Platform",addon:false,addonNote:"GPS built-in; geo-fence rules set on platform",desc:"Raised when a vehicle enters or exits a geographic boundary. Must co-work with client app.",dnu:false},
+  {name:"Video loss alarm",type:"alarm",cat:"System Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Fires per channel when a camera feed is lost (e.g. damaged camera or cable). See Video Alarms > Video Loss.",dnu:false},
+  {name:"Driver fatigue",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DMS camera (e.g. C29N) required",desc:"Detected by the external DMS camera. Triggers when eyes are closed for a defined duration. Configurable by speed threshold.",dnu:false},
+  {name:"Yawning detection",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Detected when mouth is open for a defined period. Configurable by speed threshold.",dnu:false},
+  {name:"Tiredness",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Pre-built into driver fatigue, operates by blink-rate. Configurable by speed threshold. (TBC — attempting to separate from fatigue.)",dnu:false},
+  {name:"Driver distraction",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Triggered when driver's gaze leaves the road. Includes judgement level and distraction level (up, down, left, right). Configurable by speed threshold.",dnu:false},
+  {name:"Phone detection",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Detected when phone is in hand and in use for a defined duration. Configurable by speed threshold.",dnu:false},
+  {name:"Smoking detection",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Detected when a smoking action is detected for a defined duration. Configurable by speed threshold.",dnu:false},
+  {name:"No driver",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Raised when vehicle is in motion but no driver is detected. Also indicates camera tampering if camera is moved away from the driver seat. Configurable by speed threshold.",dnu:false},
+  {name:"Unrecognised driver",type:"event",cat:"Driver Issues",system:"DVR + Platform",addon:true,addonNote:"DSC built-in or DMS camera; face library on platform",desc:"Driver face does not match an enrolled profile. Requires Face Compare function with FT Cloud platform.",dnu:false},
+  {name:"No seat belt",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Detected when seat belt is not fastened for a defined duration. Configurable by speed threshold.",dnu:false},
+  {name:"Over-mileage / speeding alarm",type:"event",cat:"Driver Issues",system:"DVR + Platform",addon:false,addonNote:"GPS/odometer built-in; mileage rules set on platform",desc:"Alert when a vehicle exceeds a configured mileage allowance. Based on GPS data.",dnu:false},
+  {name:"Impeding violation",type:"event",cat:"Driver Issues",system:"DVR",addon:false,addonNote:"None — uses built-in GPS speed",desc:"Detects driving significantly below the speed limit using GPS. Note: needs further testing — never yet triggered.",dnu:false,needsTesting:true},
+  {name:"Left BSD warning",type:"alarm",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD left-side camera required",desc:"Amber VRU warning on the left side. Level I at 2–3 m distance. Requires external BSD camera.",dnu:false},
+  {name:"Left BSD alarm",type:"alarm",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD left-side camera required",desc:"Red VRU danger zone on the left side (1–2 m or 0–1 m). Audible/visual alarm B1/B2 can be linked.",dnu:false},
+  {name:"Right BSD warning",type:"alarm",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD right-side camera required",desc:"Amber VRU warning on the right side. Level I at 2–3 m from vehicle body. Requires external BSD camera.",dnu:false},
+  {name:"Right BSD alarm",type:"alarm",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD right-side camera required",desc:"Red VRU danger zone on the right side (1–2 m or 0–1 m). Triggers audible/visual alarm B1/B2 when linked.",dnu:false},
+  {name:"Forward blind area",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD front camera and 360°",desc:"VRU detected in forward blind zone. Red zone alert unless stationary (amber when stationary). Listed under BSD AI Alarms.",dnu:false},
+  {name:"Behind blind area",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD front camera and 360°",desc:"VRU detected in rearward blind zone. Requires a rear or 360° camera add-on.",dnu:false},
+  {name:"Lane departure",type:"event",cat:"Caused by Driver",system:"DVR",addon:true,addonNote:"ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",desc:"Triggered when vehicle veers off solid or dotted lanes. Indicator cancellation: activating the indicator suppresses the alert.",dnu:false},
+  {name:"High-speed alarm",type:"alarm",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — built-in GPS speed",desc:"Triggered when speed exceeds the Level 2 speed threshold. See Basic Alarms > Speed Alarm.",dnu:false},
+  {name:"Excessive G-force event",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Parent event for all G-force exceedances. Uses ACCEL2 algorithm. Includes shock/collision detection.",dnu:false},
+  {name:"Excessive G-force / harsh braking",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Harsh braking trigger within ACCEL2. Offset values are vehicle-tonnage dependent.",dnu:false},
+  {name:"Excessive G-force / harsh acceleration",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Hard acceleration trigger within ACCEL2. Longitudinal acceleration exceedance.",dnu:false},
+  {name:"Excessive G-force / harsh right turn",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Harsh right turn within ACCEL2. Lateral G-force exceedance on right cornering.",dnu:false},
+  {name:"Excessive G-force / harsh left turn",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Harsh left turn within ACCEL2. Lateral G-force exceedance on left cornering.",dnu:false},
+  {name:"Illegal shutdown",type:"alarm",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — ACC/ignition monitoring built-in",desc:"Triggered when the device is powered off outside the configured ignition or timing shutdown procedure.",dnu:false},
+  {name:"Forward collision warning",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",desc:"Time-to-collision (TTC) based alert calculated from current speed. Configurable by speed threshold.",dnu:false},
+  {name:"Motion detection alarm",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Triggered by pixel-change detection on any camera channel when the vehicle is stationary. Configured via IO Alarm settings.",dnu:false},
+  {name:"Left blind spot detection",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"BSD left-side camera required",desc:"General left-side BSD detection listed under BSD AI Alarms. Potential overlap with left BSD warning/alarm entries.",dnu:false,potentialDuplicate:true,duplicateOf:"BSD warning & alarm"},
+  {name:"Right blind spot detection",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"BSD right-side camera required",desc:"General right-side BSD detection listed under BSD AI Alarms. Potential overlap with right BSD warning/alarm entries.",dnu:false,potentialDuplicate:true,duplicateOf:"BSD warning & alarm"},
+  {name:"Tailgating",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",desc:"Measured by gap distance to the vehicle ahead. Triggers when the gap drops below 2.5 seconds at current speed.",dnu:false},
+  {name:"Emergency alarm",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"Panel button built-in",desc:"Triggered by pressing the built-in panel button to record an incident event manually.",dnu:false},
+  {name:"Emergency alarm / video tag",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Triggered by pressing the built-in panel button. Duplicate of emergency alarm — used for manual video tagging.",dnu:false,potentialDuplicate:true,duplicateOf:"Emergency alarm"},
+  {name:"Pedestrian collision warning",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",desc:"PCW — AI detects pedestrians in the vehicle's path and triggers an audible alarm to help avoid an accident.",dnu:false},
+  {name:"Customised alarm",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"IO inputs built-in (up to 4 IO; 8 with UPS power box)",desc:"Configured via IO Alarm. Up to 8 sensor inputs, fully customisable.",dnu:false},
+  {name:"Idle alarm",type:"alarm",cat:"External",system:"DVR + Platform",addon:false,addonNote:"ACC/ignition monitoring built-in",desc:"Raised when engine idles beyond a configured duration. Shutdown delay is configurable to avoid false triggers at traffic lights.",dnu:false},
+  {name:"Low bridge collision warning",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Low bridge detection system — Exeros add-on",desc:"Active collision warning when bridge clearance is less than vehicle height. Separate Exeros add-on system.",dnu:false},
+  {name:"Low bridge nearby",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"Low bridge detection system — Exeros add-on",desc:"Stage 1 of low bridge detection. AI sign reading identifies a low bridge ahead. Separate Exeros system.",dnu:false},
+  {name:"Low bridge alarm",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Low bridge detection system — Exeros add-on",desc:"Stage 3: confirmed collision risk — vehicle height exceeds bridge clearance. Separate Exeros system.",dnu:false},
+  {name:"Low bridge OK",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"Low bridge detection system — Exeros add-on",desc:"Resolution event: vehicle passed a flagged low bridge without incident. Separate Exeros system.",dnu:false},
+  {name:"Left radar alarm",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Left-side radar sensor unit — add-on",desc:"Object detected by a dedicated radar unit on the left side. Not in AD Plus2.0 manual — separate add-on sensor.",dnu:true},
+  {name:"Right radar alarm",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Right-side radar sensor unit — add-on",desc:"Object detected by a dedicated radar unit on the right side. Not in AD Plus2.0 manual — separate add-on sensor.",dnu:true},
+  {name:"Rear radar alarm",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Rear radar sensor unit — add-on",desc:"Object detected by a rear-mounted radar unit. Not in AD Plus2.0 manual — separate add-on sensor.",dnu:true},
+  {name:"Front panel alarm",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"None — panel button built-in",desc:"Hardware alarm from DVR front panel button. See Basic Alarms > Panel Alarm. Trigger time 1–255s. Hardware-specific.",dnu:true},
 ];
 /*DATA_END*/
 
