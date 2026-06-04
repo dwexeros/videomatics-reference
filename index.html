@@ -459,9 +459,7 @@
 </div>
 
 <script>
-const GH_TOKEN = 'ghp_mhCnYhdTZsnEHUR3' + '0PbMHS8mxiSnGp0hsfJJ';
-const GH_REPO  = 'dwexeros/videomatics-reference';
-const GH_FILE  = 'index.html';
+const WORKER_URL = 'https://vidematics-proxy.david-wong-fd0.workers.dev';
 
 let DATA = [
   {name:"Camera cover alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Triggered when a camera lens is covered. AI algorithm detects covering across all relevant cameras.",dnu:false},
@@ -800,66 +798,6 @@ async function saveToGitHub() {
   const saveBtn = document.getElementById('saveGhBtn');
   const toast   = document.getElementById('saveToast');
 
-  saveBtn.disabled = true;
-  saveBtn.innerHTML = '<i class="ti ti-loader ti-spin"></i> Saving…';
-
-  try {
-    // 1. Get current file SHA
-    const metaResp = await fetch(
-      `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`,
-      { headers: { 'Authorization': `token ${GH_TOKEN}`, 'Accept': 'application/vnd.github.v3+json' } }
-    );
-    const meta = await metaResp.json();
-    const sha  = meta.sha;
-
-    // 2. Serialise the current page HTML with updated DATA baked in
-    // Temporarily disable contenteditable so outerHTML is clean
-    const titleEl    = document.getElementById('page-title');
-    const subtitleEl = document.getElementById('page-subtitle');
-    const wasEditing = editModeOn;
-    if (wasEditing) {
-      titleEl.contentEditable    = 'false';
-      subtitleEl.contentEditable = 'false';
-      titleEl.classList.remove('editable-active');
-      subtitleEl.classList.remove('editable-active');
-    }
-
-    const dataJSON  = JSON.stringify(DATA, null, 2);
-    let   src       = document.documentElement.outerHTML;
-    src = src.replace(/^const GH_TOKEN = '.*?';/m, `const GH_TOKEN = '${GH_TOKEN}';`);
-    src = src.replace(/^let DATA = \[[\s\S]*?\];/m, 'let DATA = ' + dataJSON + ';');
-
-    if (wasEditing) {
-      titleEl.contentEditable    = 'true';
-      subtitleEl.contentEditable = 'true';
-      titleEl.classList.add('editable-active');
-      subtitleEl.classList.add('editable-active');
-    }
-
-    // 3. Push to GitHub
-    const encoded = btoa(unescape(encodeURIComponent(src)));
-    const pushResp = await fetch(
-      `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Authorization': `token ${GH_TOKEN}`,
-          'Accept':        'application/vnd.github.v3+json',
-          'Content-Type':  'application/json'
-        },
-        body: JSON.stringify({ message: 'Update reference page', content: encoded, sha })
-      }
-    );
-
-    if (pushResp.ok) {
-      showToast('success', '<i class="ti ti-circle-check"></i> Saved! Changes are live.');
-    } else {
-      const err = await pushResp.json();
-      showToast('error', '<i class="ti ti-alert-circle"></i> Save failed: ' + (err.message || pushResp.status));
-    }
-  } catch (e) {
-    showToast('error', '<i class="ti ti-alert-circle"></i> Error: ' + e.message);
-  }
 
   saveBtn.disabled = false;
   saveBtn.innerHTML = '<i class="ti ti-brand-github"></i> Save changes';
