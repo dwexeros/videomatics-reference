@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>VideMatics ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Events &amp; Alarms Reference</title>
+<title>VideMatics — Events &amp; Alarms Reference</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
 <link rel="icon" type="image/png" href="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCABAAEADASIAAhEBAxEB/8QAGQABAQADAQAAAAAAAAAAAAAAAAcEBggD/8QAMRAAAQQBAwAIAwkBAAAAAAAAAQACAwQHBQYRCBITGCExUdMUQVcWFyJCU1RWk5TS/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOVUREBERAREQEREBERBRcEYl1rLG4rFGhaj07TaLGyX78rC8RBxPVa1vI6zzw4gcgAAknyBrjujvh5jiyTPGnh7Tw4fE0xwfn+dZXQ0pXdRwjlbT9MifLftRPgrsY4Nc+R1R4aATxweT6qQs6POYwxo+wFwcD9xX9xBVO7zhz686f8A6qf/AGplnjHOy9h1dIl2lkCvux92WVlhkUsL/hw0NLSezJ45JI8fRePd6zH/AAG5/or+4ta33jnemw4qku7dvTaSy65zK5kkjd2haAXD8Dj5AjzQasiIgIiIOq+hpdu6dhLK1/S5XxX6sT5qz2NDnMkbUeWEA88nkenyUfZ0hcxFjT94FzxH6Ff21j4KyzrmJ9x2NQ02vFqGn3mNjv0JXljZg0nqua4A9V45dweCOCQR6V93SQxS9xfJgjTXPceXEw1Dyfn49n4oJV3hcw/UC5/RX9ta1vnI289+RVIt2bim1dlJzn1xJHG3sy4AOI6jR5gDzV67x2J/oPpv9FP21Ms85K2jkCrpEW19gVtqPoyyvnfDHC34gODQAezaPLgnx9UEqREQEREBERAREQEREH//2Q==" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Black / Red / White palette ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+  /* ── Black / Red / White palette ── */
   :root {
     --drac-bg:        #0a0a0a;
     --drac-surface:   #141414;
@@ -29,7 +29,7 @@
     --drac-orange:    #ff6666;
     --drac-red:       #e0192d;
 
-    /* category fills ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ all red-tinted, different intensities */
+    /* category fills — all red-tinted, different intensities */
     --cat-vehicle-bg:   rgba(224,25,45,0.12);
     --cat-vehicle-text: #ff6b78;
     --cat-vehicle-dot:  #ff6b78;
@@ -65,7 +65,7 @@
 
   .page { max-width: 1100px; margin: 0 auto; }
 
-  /* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Header ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+  /* ── Header ── */
   .vm-header { margin-bottom: 2rem; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
   .vm-header-text h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; color: var(--drac-purple); }
   .vm-header-text p { font-size: 13px; color: var(--drac-fg-muted); }
@@ -73,7 +73,7 @@
   [contenteditable].editable-active { background: rgba(224,25,45,0.08); box-shadow: 0 0 0 1.5px var(--drac-red); padding: 2px 6px; cursor: text; }
   [contenteditable].editable-active:empty:before { content: attr(data-placeholder); color: var(--drac-fg-dim); }
 
-  /* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Edit toggle ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+  /* ── Edit toggle ── */
   .edit-toggle {
     display: flex; align-items: center; gap: 8px; padding: 7px 14px;
     border: 0.5px solid var(--drac-border); border-radius: 20px;
@@ -98,7 +98,7 @@
   .sticky-edit-btn.active { background: rgba(224,25,45,0.15); color: var(--drac-red); border-color: var(--drac-red); font-weight: 500; }
   .sticky-edit-btn i { font-size: 15px; }
 
-  /* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Save to GitHub button ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+  /* ── Save to GitHub button ── */
   .save-gh-btn {
     position: fixed; bottom: 24px; right: 24px; z-index: 500;
     display: none; align-items: center; gap: 8px; padding: 10px 18px;
@@ -122,13 +122,13 @@
   .save-toast.success { background: rgba(80,250,123,0.15); color: #50fa7b; border: 0.5px solid rgba(80,250,123,0.4); }
   .save-toast.error   { background: rgba(224,25,45,0.15);  color: var(--drac-red); border: 0.5px solid rgba(224,25,45,0.4); }
 
-  /* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Stats ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+  /* ── Stats ── */
   .vm-stats { display: flex; gap: 10px; margin-bottom: 1.75rem; flex-wrap: wrap; }
   .vm-stat { background: var(--drac-surface); border: 0.5px solid var(--drac-border); border-radius: 8px; padding: 10px 16px; flex: 1; min-width: 110px; }
   .vm-stat-n { font-size: 22px; font-weight: 500; color: var(--drac-red); line-height: 1.2; }
   .vm-stat-l { font-size: 11px; color: var(--drac-fg-dim); margin-top: 2px; }
 
-  /* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Search ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+  /* ── Search ── */
   .vm-search {
     width: 100%; padding: 8px 12px; font-size: 13px;
     border: 0.5px solid var(--drac-border); border-radius: 8px;
@@ -139,7 +139,7 @@
   .vm-search::placeholder { color: var(--drac-fg-dim); }
   .vm-search:focus { border-color: var(--drac-red); }
 
-  /* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Filters ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+  /* ── Filters ── */
   .vm-filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; align-items: center; }
   .vm-filter-label { font-size: 12px; color: var(--drac-fg-dim); }
   .vm-chip {
@@ -156,14 +156,14 @@
   .vm-chip[data-cat="External"].active        { background: var(--cat-external-bg); color: var(--cat-external-text); border-color: var(--cat-external-dot); }
   .vm-chip[data-cat="System Issues"].active   { background: var(--cat-system-bg);   color: var(--cat-system-text);   border-color: var(--cat-system-dot); }
 
-  /* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Section ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+  /* ── Section ── */
   .vm-section { margin-bottom: 1.75rem; }
   .vm-section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
   .vm-section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .vm-section-title { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; }
   .vm-section-count { font-size: 11px; color: var(--drac-fg-dim); }
 
-  /* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Cards ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+  /* ── Cards ── */
   .vm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 8px; }
   .vm-card {
     background: var(--drac-surface); border: 0.5px solid var(--drac-border);
@@ -213,7 +213,7 @@
   }
   .vm-card.edit-mode:hover .edit-hint { opacity: 1; }
 
-  /* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Add card btn ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+  /* ── Add card btn ── */
   .add-card-btn {
     background: transparent; border: 1.5px dashed var(--drac-border); border-radius: 12px;
     padding: 14px 16px; display: none; flex-direction: column; align-items: center; justify-content: center;
@@ -224,13 +224,13 @@
   .add-card-btn i { font-size: 20px; }
   .add-card-btn.visible { display: flex; }
 
-  /* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Empty ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+  /* ── Empty ── */
   .vm-empty { padding: 3rem; text-align: center; color: var(--drac-fg-dim); font-size: 13px; }
   .vm-empty i { font-size: 28px; display: block; margin-bottom: 10px; }
 
 
 
-  /* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Modal overlay ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+  /* ── Modal overlay ── */
   .modal-overlay {
     display: none; position: fixed; inset: 0; background: rgba(20,21,28,0.75);
     z-index: 1000; align-items: center; justify-content: center; padding: 1rem;
@@ -290,7 +290,7 @@
   .btn-danger { color: var(--drac-red); border-color: rgba(255,85,85,0.3); }
   .btn-danger:hover { background: rgba(255,85,85,0.12); border-color: var(--drac-red); }
 
-  /* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Password modal ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+  /* ── Password modal ── */
   .pw-overlay {
     display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
     z-index: 2000; align-items: center; justify-content: center; padding: 1rem;
@@ -330,7 +330,7 @@
 <div class="page">
   <div class="vm-header">
     <div class="vm-header-text">
-      <h1 id="page-title" contenteditable="false" data-placeholder="Page title" spellcheck="false">VideMatics ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ events &amp; alarms reference</h1>
+      <h1 id="page-title" contenteditable="false" data-placeholder="Page title" spellcheck="false">VideMatics — events &amp; alarms reference</h1>
       <p id="page-subtitle" contenteditable="false" data-placeholder="Subtitle" spellcheck="false">Configuration guide for DVR platform events, AI alarms, and driver behaviour detection</p>
     </div>
     <button class="edit-toggle" id="editToggle" onclick="toggleEditMode()">
@@ -347,7 +347,7 @@
     <div class="vm-stat"><div class="vm-stat-n" id="s-cats">5</div><div class="vm-stat-l">Categories</div></div>
   </div>
 
-  <input class="vm-search" type="search" placeholder="Search events or alarmsÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¦" id="search" oninput="render()" />
+  <input class="vm-search" type="search" placeholder="Search events or alarms…" id="search" oninput="render()" />
 
   <div class="vm-filter-row">
     <span class="vm-filter-label">Filter:</span>
@@ -408,7 +408,7 @@
     </div>
     <div class="form-group">
       <label class="form-label">Add-ons required</label>
-      <input class="form-input" id="f-addonNote" type="text" placeholder="e.g. None ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ built into core DVR" />
+      <input class="form-input" id="f-addonNote" type="text" placeholder="e.g. None — built into core DVR" />
     </div>
     <div class="form-checkbox-row">
       <input type="checkbox" id="f-addon" />
@@ -416,7 +416,7 @@
     </div>
     <div class="form-group">
       <label class="form-label">Description</label>
-      <textarea class="form-textarea" id="f-desc" placeholder="Describe what triggers this event or alarmÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¦"></textarea>
+      <textarea class="form-textarea" id="f-desc" placeholder="Describe what triggers this event or alarm…"></textarea>
     </div>
 
     <div class="flags-section">
@@ -425,15 +425,15 @@
       <div class="flag-row">
         <input type="checkbox" id="f-dnu" class="cb-dnu" />
         <label class="flag-label" for="f-dnu">
-          <span class="flag-pill dnu">ÃÂÃÂ°ÃÂÃÂÃÂÃÂÃÂÃÂ« do not use</span>
-          <span class="flag-desc">Marks this entry as excluded ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ shown with a red dashed border</span>
+          <span class="flag-pill dnu">🚫 do not use</span>
+          <span class="flag-desc">Marks this entry as excluded — shown with a red dashed border</span>
         </label>
       </div>
 
       <div class="flag-row">
         <input type="checkbox" id="f-needsTesting" class="cb-test" />
         <label class="flag-label" for="f-needsTesting">
-          <span class="flag-pill test">ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ  needs testing</span>
+          <span class="flag-pill test">⚠ needs testing</span>
           <span class="flag-desc">Marks this entry as unverified or untriggered in the field</span>
         </label>
       </div>
@@ -441,7 +441,7 @@
       <div class="flag-row">
         <input type="checkbox" id="f-potentialDuplicate" class="cb-dup" onchange="toggleDupInput(this)" />
         <label class="flag-label" for="f-potentialDuplicate">
-          <span class="flag-pill dup">ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ  duplicate ofÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¦</span>
+          <span class="flag-pill dup">⚠ duplicate of…</span>
           <span class="flag-desc">Marks this entry as a potential duplicate of another</span>
         </label>
       </div>
@@ -463,533 +463,58 @@ const WORKER_URL = 'https://vidematics-proxy.david-wong-fd0.workers.dev';
 
 /*DATA_START*/
 let DATA = [
-  {
-    "name": "Camera cover alarm",
-    "type": "alarm",
-    "cat": "Vehicle Issues",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "Triggered when a camera lens is covered. AI algorithm detects covering across all relevant cameras.",
-    "dnu": false
-  },
-  {
-    "name": "Abnormal storage alarm",
-    "type": "alarm",
-    "cat": "Vehicle Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "SD card / HDD storage media",
-    "desc": "MDVR or dashcam has detected a failure, corruption, or missing storage media (SD card/HDD).",
-    "dnu": false
-  },
-  {
-    "name": "Low voltage alarm",
-    "type": "alarm",
-    "cat": "Vehicle Issues",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "Raised when battery voltage drops below the configured threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Temperature alarm",
-    "type": "alarm",
-    "cat": "Vehicle Issues",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "MDVR and AI dashcams monitor device health or cargo/cabin temperature via connected sensors.",
-    "dnu": false
-  },
-  {
-    "name": "Abnormal temperature change",
-    "type": "alarm",
-    "cat": "Vehicle Issues",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "Alarm Type 46 — MDVR internal temperature exceeds safe operating thresholds (typically −40°C to +70°C).",
-    "dnu": false
-  },
-  {
-    "name": "Abnormal boot alarm",
-    "type": "alarm",
-    "cat": "Vehicle Issues",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "Triggered under low-power/sleep state by remote wake (calls, SMS, app), I/O wake, or accelerometer.",
-    "dnu": false
-  },
-  {
-    "name": "Rolling stop alarm",
-    "type": "alarm",
-    "cat": "Vehicle Issues",
-    "system": "ADAS",
-    "addon": false,
-    "addonNote": "None — purely ADAS",
-    "desc": "Detects failure to come to a complete halt at a required stop. Uses built-in 6-axis G-sensor and GPS speed. Triggers if vehicle passes a stop sign without stopping.",
-    "dnu": false
-  },
-  {
-    "name": "Geo-fence alarm",
-    "type": "alarm",
-    "cat": "System Issues",
-    "system": "DVR + Platform",
-    "addon": false,
-    "addonNote": "GPS built-in; geo-fence rules set on platform",
-    "desc": "Raised when a vehicle enters or exits a geographic boundary. Must co-work with client app.",
-    "dnu": false
-  },
-  {
-    "name": "Video loss alarm",
-    "type": "alarm",
-    "cat": "System Issues",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "Fires per channel when a camera feed is lost (e.g. damaged camera or cable). See Video Alarms > Video Loss.",
-    "dnu": false
-  },
-  {
-    "name": "Driver fatigue",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DMS camera (e.g. C29N) required",
-    "desc": "Detected by the external DMS camera. Triggers when eyes are closed for a defined duration. Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Yawning detection",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DSC built-in (AD Plus2.0 only) or DMS camera add-on",
-    "desc": "Detected when mouth is open for a defined period. Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Tiredness",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DSC built-in (AD Plus2.0 only) or DMS camera add-on",
-    "desc": "Pre-built into driver fatigue, operates by blink-rate. Configurable by speed threshold. (TBC — attempting to separate from fatigue.)",
-    "dnu": false
-  },
-  {
-    "name": "Driver distraction",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DSC built-in (AD Plus2.0 only) or DMS camera add-on",
-    "desc": "Triggered when driver's gaze leaves the road. Includes judgement level and distraction level (up, down, left, right). Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Phone detection",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DSC built-in (AD Plus2.0 only) or DMS camera add-on",
-    "desc": "Detected when phone is in hand and in use for a defined duration. Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Smoking detection",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DSC built-in (AD Plus2.0 only) or DMS camera add-on",
-    "desc": "Detected when a smoking action is detected for a defined duration. Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "No driver",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DSC built-in (AD Plus2.0 only) or DMS camera add-on",
-    "desc": "Raised when vehicle is in motion but no driver is detected. Also indicates camera tampering if camera is moved away from the driver seat. Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Unrecognised driver",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR + Platform",
-    "addon": true,
-    "addonNote": "DSC built-in or DMS camera; face library on platform",
-    "desc": "Driver face does not match an enrolled profile. Requires Face Compare function with FT Cloud platform.",
-    "dnu": false
-  },
-  {
-    "name": "No seat belt",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "DSC built-in (AD Plus2.0 only) or DMS camera add-on",
-    "desc": "Detected when seat belt is not fastened for a defined duration. Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Over-mileage / speeding alarm",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR + Platform",
-    "addon": false,
-    "addonNote": "GPS/odometer built-in; mileage rules set on platform",
-    "desc": "Alert when a vehicle exceeds a configured mileage allowance. Based on GPS data.",
-    "dnu": false
-  },
-  {
-    "name": "Impeding violation",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — uses built-in GPS speed",
-    "desc": "Detects driving significantly below the speed limit using GPS. Note: needs further testing — never yet triggered.",
-    "dnu": false,
-    "needsTesting": true
-  },
-  {
-    "name": "Left BSD warning",
-    "type": "alarm",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD left-side camera required",
-    "desc": "Amber VRU warning on the left side. Level I at 2–3 m distance. Requires external BSD camera.",
-    "dnu": false
-  },
-  {
-    "name": "Left BSD alarm",
-    "type": "alarm",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD left-side camera required",
-    "desc": "Red VRU danger zone on the left side (1–2 m or 0–1 m). Audible/visual alarm B1/B2 can be linked.",
-    "dnu": false
-  },
-  {
-    "name": "Right BSD warning",
-    "type": "alarm",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD right-side camera required",
-    "desc": "Amber VRU warning on the right side. Level I at 2–3 m from vehicle body. Requires external BSD camera.",
-    "dnu": false
-  },
-  {
-    "name": "Right BSD alarm",
-    "type": "alarm",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD right-side camera required",
-    "desc": "Red VRU danger zone on the right side (1–2 m or 0–1 m). Triggers audible/visual alarm B1/B2 when linked.",
-    "dnu": false
-  },
-  {
-    "name": "Forward blind area",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD front camera and 360°",
-    "desc": "VRU detected in forward blind zone. Red zone alert unless stationary (amber when stationary). Listed under BSD AI Alarms.",
-    "dnu": false
-  },
-  {
-    "name": "Behind blind area",
-    "type": "event",
-    "cat": "Driver Issues",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD front camera and 360°",
-    "desc": "VRU detected in rearward blind zone. Requires a rear or 360° camera add-on.",
-    "dnu": false
-  },
-  {
-    "name": "Lane departure",
-    "type": "event",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",
-    "desc": "Triggered when vehicle veers off solid or dotted lanes. Indicator cancellation: activating the indicator suppresses the alert.",
-    "dnu": false
-  },
-  {
-    "name": "High-speed alarm",
-    "type": "alarm",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built-in GPS speed",
-    "desc": "Triggered when speed exceeds the Level 2 speed threshold. See Basic Alarms > Speed Alarm.",
-    "dnu": false
-  },
-  {
-    "name": "Excessive G-force event",
-    "type": "event",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — 6-axis G-sensor built-in",
-    "desc": "Parent event for all G-force exceedances. Uses ACCEL2 algorithm. Includes shock/collision detection.",
-    "dnu": false
-  },
-  {
-    "name": "Excessive G-force / harsh braking",
-    "type": "event",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — 6-axis G-sensor built-in",
-    "desc": "Harsh braking trigger within ACCEL2. Offset values are vehicle-tonnage dependent.",
-    "dnu": false
-  },
-  {
-    "name": "Excessive G-force / harsh acceleration",
-    "type": "event",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — 6-axis G-sensor built-in",
-    "desc": "Hard acceleration trigger within ACCEL2. Longitudinal acceleration exceedance.",
-    "dnu": false
-  },
-  {
-    "name": "Excessive G-force / harsh right turn",
-    "type": "event",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — 6-axis G-sensor built-in",
-    "desc": "Harsh right turn within ACCEL2. Lateral G-force exceedance on right cornering.",
-    "dnu": false
-  },
-  {
-    "name": "Excessive G-force / harsh left turn",
-    "type": "event",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — 6-axis G-sensor built-in",
-    "desc": "Harsh left turn within ACCEL2. Lateral G-force exceedance on left cornering.",
-    "dnu": false
-  },
-  {
-    "name": "Illegal shutdown",
-    "type": "alarm",
-    "cat": "Caused by Driver",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — ACC/ignition monitoring built-in",
-    "desc": "Triggered when the device is powered off outside the configured ignition or timing shutdown procedure.",
-    "dnu": false
-  },
-  {
-    "name": "Forward collision warning",
-    "type": "event",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",
-    "desc": "Time-to-collision (TTC) based alert calculated from current speed. Configurable by speed threshold.",
-    "dnu": false
-  },
-  {
-    "name": "Motion detection alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "Triggered by pixel-change detection on any camera channel when the vehicle is stationary. Configured via IO Alarm settings.",
-    "dnu": false
-  },
-  {
-    "name": "Left blind spot detection",
-    "type": "event",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD left-side camera required",
-    "desc": "General left-side BSD detection listed under BSD AI Alarms. Potential overlap with left BSD warning/alarm entries.",
-    "dnu": false,
-    "potentialDuplicate": true,
-    "duplicateOf": "BSD warning & alarm"
-  },
-  {
-    "name": "Right blind spot detection",
-    "type": "event",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "BSD right-side camera required",
-    "desc": "General right-side BSD detection listed under BSD AI Alarms. Potential overlap with right BSD warning/alarm entries.",
-    "dnu": false,
-    "potentialDuplicate": true,
-    "duplicateOf": "BSD warning & alarm"
-  },
-  {
-    "name": "Tailgating",
-    "type": "event",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",
-    "desc": "Measured by gap distance to the vehicle ahead. Triggers when the gap drops below 2.5 seconds at current speed.",
-    "dnu": false
-  },
-  {
-    "name": "Emergency alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "Panel button built-in",
-    "desc": "Triggered by pressing the built-in panel button to record an incident event manually.",
-    "dnu": false
-  },
-  {
-    "name": "Emergency alarm / video tag",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — built into core DVR",
-    "desc": "Triggered by pressing the built-in panel button. Duplicate of emergency alarm — used for manual video tagging.",
-    "dnu": false,
-    "potentialDuplicate": true,
-    "duplicateOf": "Emergency alarm"
-  },
-  {
-    "name": "Pedestrian collision warning",
-    "type": "event",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",
-    "desc": "PCW — AI detects pedestrians in the vehicle's path and triggers an audible alarm to help avoid an accident.",
-    "dnu": false
-  },
-  {
-    "name": "Customised alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "IO inputs built-in (up to 4 IO; 8 with UPS power box)",
-    "desc": "Configured via IO Alarm. Up to 8 sensor inputs, fully customisable.",
-    "dnu": false
-  },
-  {
-    "name": "Idle alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR + Platform",
-    "addon": false,
-    "addonNote": "ACC/ignition monitoring built-in",
-    "desc": "Raised when engine idles beyond a configured duration. Shutdown delay is configurable to avoid false triggers at traffic lights.",
-    "dnu": false
-  },
-  {
-    "name": "Low bridge collision warning",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "Low bridge detection system — Exeros add-on",
-    "desc": "Active collision warning when bridge clearance is less than vehicle height. Separate Exeros add-on system.",
-    "dnu": false
-  },
-  {
-    "name": "Low bridge nearby",
-    "type": "event",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "Low bridge detection system — Exeros add-on",
-    "desc": "Stage 1 of low bridge detection. AI sign reading identifies a low bridge ahead. Separate Exeros system.",
-    "dnu": false
-  },
-  {
-    "name": "Low bridge alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "Low bridge detection system — Exeros add-on",
-    "desc": "Stage 3: confirmed collision risk — vehicle height exceeds bridge clearance. Separate Exeros system.",
-    "dnu": false
-  },
-  {
-    "name": "Low bridge OK",
-    "type": "event",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "Low bridge detection system — Exeros add-on",
-    "desc": "Resolution event: vehicle passed a flagged low bridge without incident. Separate Exeros system.",
-    "dnu": false
-  },
-  {
-    "name": "Left radar alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "Left-side radar sensor unit — add-on",
-    "desc": "Object detected by a dedicated radar unit on the left side. Not in AD Plus2.0 manual — separate add-on sensor.",
-    "dnu": true
-  },
-  {
-    "name": "Right radar alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "Right-side radar sensor unit — add-on",
-    "desc": "Object detected by a dedicated radar unit on the right side. Not in AD Plus2.0 manual — separate add-on sensor.",
-    "dnu": true
-  },
-  {
-    "name": "Rear radar alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": true,
-    "addonNote": "Rear radar sensor unit — add-on",
-    "desc": "Object detected by a rear-mounted radar unit. Not in AD Plus2.0 manual — separate add-on sensor.",
-    "dnu": true
-  },
-  {
-    "name": "Front panel alarm",
-    "type": "alarm",
-    "cat": "External",
-    "system": "DVR",
-    "addon": false,
-    "addonNote": "None — panel button built-in",
-    "desc": "Hardware alarm from DVR front panel button. See Basic Alarms > Panel Alarm. Trigger time 1–255s. Hardware-specific.",
-    "dnu": true
-  }
+  {name:"Camera cover alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Triggered when a camera lens is covered. AI algorithm detects covering across all relevant cameras.",dnu:false},
+  {name:"Abnormal storage alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:true,addonNote:"SD card / HDD storage media",desc:"MDVR or dashcam has detected a failure, corruption, or missing storage media (SD card/HDD).",dnu:false},
+  {name:"Low voltage alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Raised when battery voltage drops below the configured threshold.",dnu:false},
+  {name:"Temperature alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"MDVR and AI dashcams monitor device health or cargo/cabin temperature via connected sensors.",dnu:false},
+  {name:"Abnormal temperature change",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Alarm Type 46 — MDVR internal temperature exceeds safe operating thresholds (typically −40°C to +70°C).",dnu:false},
+  {name:"Abnormal boot alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Triggered under low-power/sleep state by remote wake (calls, SMS, app), I/O wake, or accelerometer.",dnu:false},
+  {name:"Rolling stop alarm",type:"alarm",cat:"Vehicle Issues",system:"ADAS",addon:false,addonNote:"None — purely ADAS",desc:"Detects failure to come to a complete halt at a required stop. Uses built-in 6-axis G-sensor and GPS speed. Triggers if vehicle passes a stop sign without stopping.",dnu:false},
+  {name:"Geo-fence alarm",type:"alarm",cat:"System Issues",system:"DVR + Platform",addon:false,addonNote:"GPS built-in; geo-fence rules set on platform",desc:"Raised when a vehicle enters or exits a geographic boundary. Must co-work with client app.",dnu:false},
+  {name:"Video loss alarm",type:"alarm",cat:"System Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Fires per channel when a camera feed is lost (e.g. damaged camera or cable). See Video Alarms > Video Loss.",dnu:false},
+  {name:"Driver fatigue",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DMS camera (e.g. C29N) required",desc:"Detected by the external DMS camera. Triggers when eyes are closed for a defined duration. Configurable by speed threshold.",dnu:false},
+  {name:"Yawning detection",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Detected when mouth is open for a defined period. Configurable by speed threshold.",dnu:false},
+  {name:"Tiredness",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Pre-built into driver fatigue, operates by blink-rate. Configurable by speed threshold. (TBC — attempting to separate from fatigue.)",dnu:false},
+  {name:"Driver distraction",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Triggered when driver's gaze leaves the road. Includes judgement level and distraction level (up, down, left, right). Configurable by speed threshold.",dnu:false},
+  {name:"Phone detection",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Detected when phone is in hand and in use for a defined duration. Configurable by speed threshold.",dnu:false},
+  {name:"Smoking detection",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Detected when a smoking action is detected for a defined duration. Configurable by speed threshold.",dnu:false},
+  {name:"No driver",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Raised when vehicle is in motion but no driver is detected. Also indicates camera tampering if camera is moved away from the driver seat. Configurable by speed threshold.",dnu:false},
+  {name:"Unrecognised driver",type:"event",cat:"Driver Issues",system:"DVR + Platform",addon:true,addonNote:"DSC built-in or DMS camera; face library on platform",desc:"Driver face does not match an enrolled profile. Requires Face Compare function with FT Cloud platform.",dnu:false},
+  {name:"No seat belt",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"DSC built-in (AD Plus2.0 only) or DMS camera add-on",desc:"Detected when seat belt is not fastened for a defined duration. Configurable by speed threshold.",dnu:false},
+  {name:"Over-mileage / speeding alarm",type:"event",cat:"Driver Issues",system:"DVR + Platform",addon:false,addonNote:"GPS/odometer built-in; mileage rules set on platform",desc:"Alert when a vehicle exceeds a configured mileage allowance. Based on GPS data.",dnu:false},
+  {name:"Impeding violation",type:"event",cat:"Driver Issues",system:"DVR",addon:false,addonNote:"None — uses built-in GPS speed",desc:"Detects driving significantly below the speed limit using GPS. Note: needs further testing — never yet triggered.",dnu:false,needsTesting:true},
+  {name:"Left BSD warning",type:"alarm",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD left-side camera required",desc:"Amber VRU warning on the left side. Level I at 2–3 m distance. Requires external BSD camera.",dnu:false},
+  {name:"Left BSD alarm",type:"alarm",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD left-side camera required",desc:"Red VRU danger zone on the left side (1–2 m or 0–1 m). Audible/visual alarm B1/B2 can be linked.",dnu:false},
+  {name:"Right BSD warning",type:"alarm",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD right-side camera required",desc:"Amber VRU warning on the right side. Level I at 2–3 m from vehicle body. Requires external BSD camera.",dnu:false},
+  {name:"Right BSD alarm",type:"alarm",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD right-side camera required",desc:"Red VRU danger zone on the right side (1–2 m or 0–1 m). Triggers audible/visual alarm B1/B2 when linked.",dnu:false},
+  {name:"Forward blind area",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD front camera and 360°",desc:"VRU detected in forward blind zone. Red zone alert unless stationary (amber when stationary). Listed under BSD AI Alarms.",dnu:false},
+  {name:"Behind blind area",type:"event",cat:"Driver Issues",system:"DVR",addon:true,addonNote:"BSD front camera and 360°",desc:"VRU detected in rearward blind zone. Requires a rear or 360° camera add-on.",dnu:false},
+  {name:"Lane departure",type:"event",cat:"Caused by Driver",system:"DVR",addon:true,addonNote:"ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",desc:"Triggered when vehicle veers off solid or dotted lanes. Indicator cancellation: activating the indicator suppresses the alert.",dnu:false},
+  {name:"High-speed alarm",type:"alarm",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — built-in GPS speed",desc:"Triggered when speed exceeds the Level 2 speed threshold. See Basic Alarms > Speed Alarm.",dnu:false},
+  {name:"Excessive G-force event",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Parent event for all G-force exceedances. Uses ACCEL2 algorithm. Includes shock/collision detection.",dnu:false},
+  {name:"Excessive G-force / harsh braking",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Harsh braking trigger within ACCEL2. Offset values are vehicle-tonnage dependent.",dnu:false},
+  {name:"Excessive G-force / harsh acceleration",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Hard acceleration trigger within ACCEL2. Longitudinal acceleration exceedance.",dnu:false},
+  {name:"Excessive G-force / harsh right turn",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Harsh right turn within ACCEL2. Lateral G-force exceedance on right cornering.",dnu:false},
+  {name:"Excessive G-force / harsh left turn",type:"event",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — 6-axis G-sensor built-in",desc:"Harsh left turn within ACCEL2. Lateral G-force exceedance on left cornering.",dnu:false},
+  {name:"Illegal shutdown",type:"alarm",cat:"Caused by Driver",system:"DVR",addon:false,addonNote:"None — ACC/ignition monitoring built-in",desc:"Triggered when the device is powered off outside the configured ignition or timing shutdown procedure.",dnu:false},
+  {name:"Forward collision warning",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",desc:"Time-to-collision (TTC) based alert calculated from current speed. Configurable by speed threshold.",dnu:false},
+  {name:"Motion detection alarm",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Triggered by pixel-change detection on any camera channel when the vehicle is stationary. Configured via IO Alarm settings.",dnu:false},
+  {name:"Left blind spot detection",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"BSD left-side camera required",desc:"General left-side BSD detection listed under BSD AI Alarms. Potential overlap with left BSD warning/alarm entries.",dnu:false,potentialDuplicate:true,duplicateOf:"BSD warning & alarm"},
+  {name:"Right blind spot detection",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"BSD right-side camera required",desc:"General right-side BSD detection listed under BSD AI Alarms. Potential overlap with right BSD warning/alarm entries.",dnu:false,potentialDuplicate:true,duplicateOf:"BSD warning & alarm"},
+  {name:"Tailgating",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",desc:"Measured by gap distance to the vehicle ahead. Triggers when the gap drops below 2.5 seconds at current speed.",dnu:false},
+  {name:"Emergency alarm",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"Panel button built-in",desc:"Triggered by pressing the built-in panel button to record an incident event manually.",dnu:false},
+  {name:"Emergency alarm / video tag",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Triggered by pressing the built-in panel button. Duplicate of emergency alarm — used for manual video tagging.",dnu:false,potentialDuplicate:true,duplicateOf:"Emergency alarm"},
+  {name:"Pedestrian collision warning",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"ADAS built-in (AD Plus2.0); add-on for AD Plus2.0-S",desc:"PCW — AI detects pedestrians in the vehicle's path and triggers an audible alarm to help avoid an accident.",dnu:false},
+  {name:"Customised alarm",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"IO inputs built-in (up to 4 IO; 8 with UPS power box)",desc:"Configured via IO Alarm. Up to 8 sensor inputs, fully customisable.",dnu:false},
+  {name:"Idle alarm",type:"alarm",cat:"External",system:"DVR + Platform",addon:false,addonNote:"ACC/ignition monitoring built-in",desc:"Raised when engine idles beyond a configured duration. Shutdown delay is configurable to avoid false triggers at traffic lights.",dnu:false},
+  {name:"Low bridge collision warning",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Low bridge detection system — Exeros add-on",desc:"Active collision warning when bridge clearance is less than vehicle height. Separate Exeros add-on system.",dnu:false},
+  {name:"Low bridge nearby",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"Low bridge detection system — Exeros add-on",desc:"Stage 1 of low bridge detection. AI sign reading identifies a low bridge ahead. Separate Exeros system.",dnu:false},
+  {name:"Low bridge alarm",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Low bridge detection system — Exeros add-on",desc:"Stage 3: confirmed collision risk — vehicle height exceeds bridge clearance. Separate Exeros system.",dnu:false},
+  {name:"Low bridge OK",type:"event",cat:"External",system:"DVR",addon:true,addonNote:"Low bridge detection system — Exeros add-on",desc:"Resolution event: vehicle passed a flagged low bridge without incident. Separate Exeros system.",dnu:false},
+  {name:"Left radar alarm",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Left-side radar sensor unit — add-on",desc:"Object detected by a dedicated radar unit on the left side. Not in AD Plus2.0 manual — separate add-on sensor.",dnu:true},
+  {name:"Right radar alarm",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Right-side radar sensor unit — add-on",desc:"Object detected by a dedicated radar unit on the right side. Not in AD Plus2.0 manual — separate add-on sensor.",dnu:true},
+  {name:"Rear radar alarm",type:"alarm",cat:"External",system:"DVR",addon:true,addonNote:"Rear radar sensor unit — add-on",desc:"Object detected by a rear-mounted radar unit. Not in AD Plus2.0 manual — separate add-on sensor.",dnu:true},
+  {name:"Front panel alarm",type:"alarm",cat:"External",system:"DVR",addon:false,addonNote:"None — panel button built-in",desc:"Hardware alarm from DVR front panel button. See Basic Alarms > Panel Alarm. Trigger time 1–255s. Hardware-specific.",dnu:true},
 ];
 /*DATA_END*/
 
@@ -1056,7 +581,7 @@ function toggleEditMode() {
     setTimeout(() => document.getElementById('pwInput').focus(), 100);
     return;
   }
-  // Exiting edit mode ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ no password needed
+  // Exiting edit mode — no password needed
   editModeOn = !editModeOn;
   const btn = document.getElementById('editToggle');
   const stickyBtn = document.getElementById('stickyEditBtn');
@@ -1076,7 +601,7 @@ function toggleEditMode() {
   const subtitle = document.getElementById('page-subtitle');
 
   if (editModeOn) {
-    // entering edit mode ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ snapshot current values
+    // entering edit mode — snapshot current values
     title._snapshot = title.innerText;
     subtitle._snapshot = subtitle.innerText;
     title.contentEditable = 'true';
@@ -1084,7 +609,7 @@ function toggleEditMode() {
     title.classList.add('editable-active');
     subtitle.classList.add('editable-active');
   } else {
-    // exiting edit mode ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ only flag changes if text actually changed
+    // exiting edit mode — only flag changes if text actually changed
     title.contentEditable = 'false';
     subtitle.contentEditable = 'false';
     title.classList.remove('editable-active');
@@ -1148,7 +673,7 @@ function render() {
             <span class="vm-card-badge ${meta.cls}">${d.type}</span>
             ${d.dnu ? '<span class="vm-dnu-badge">do not use</span>' : ''}
             ${d.needsTesting ? '<span class="vm-testing-badge">needs testing</span>' : ''}
-            ${d.potentialDuplicate ? `<span class="vm-duplicate-badge" title="Potential duplicate of ${d.duplicateOf || 'BSD warning &amp; alarm'}">ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ  duplicate of ${d.duplicateOf || 'BSD warning &amp; alarm'}</span>` : ''}
+            ${d.potentialDuplicate ? `<span class="vm-duplicate-badge" title="Potential duplicate of ${d.duplicateOf || 'BSD warning &amp; alarm'}">⚠ duplicate of ${d.duplicateOf || 'BSD warning &amp; alarm'}</span>` : ''}
           </div>
         </div>
         <div class="vm-card-desc">${escHTML(d.desc)}</div>
@@ -1158,7 +683,7 @@ function render() {
             <span class="vm-meta-value ${d.addon ? 'addon-required' : 'addon-builtin'}">
               <i class="ti ${d.addon ? 'ti-puzzle' : 'ti-circle-check'}"></i>
               <span>${d.addon ? 'Required' : 'Built-in'}</span>
-              <span class="addon-detail">ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ ${escHTML(d.addonNote)}</span>
+              <span class="addon-detail">— ${escHTML(d.addonNote)}</span>
             </span>
           </div>
           <div class="vm-meta-row">
@@ -1213,7 +738,7 @@ function openAdd(cat) {
   document.getElementById('f-type').value = 'alarm';
   document.getElementById('f-cat').value = cat || 'External';
   document.getElementById('f-system').value = 'DVR';
-  document.getElementById('f-addonNote').value = 'None ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ built into core DVR';
+  document.getElementById('f-addonNote').value = 'None — built into core DVR';
   document.getElementById('f-addon').checked = false;
   document.getElementById('f-desc').value = '';
   document.getElementById('f-dnu').checked = false;
@@ -1270,11 +795,11 @@ function deleteEntry() {
 
 render();
 
-// ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Save to GitHub ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ
+// ── Save to GitHub ──
 async function saveToGitHub() {
   const saveBtn = document.getElementById('saveGhBtn');
   saveBtn.disabled = true;
-  saveBtn.innerHTML = '<i class="ti ti-loader ti-spin"></i> SavingÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¦';
+  saveBtn.innerHTML = '<i class="ti ti-loader ti-spin"></i> Saving…';
 
   // Exit edit mode cleanly
   const titleEl    = document.getElementById('page-title');
@@ -1295,7 +820,7 @@ async function saveToGitHub() {
   render();
 
   try {
-    // Just send the DATA array to the worker ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ it handles splicing into the file
+    // Just send the DATA array to the worker — it handles splicing into the file
     const pushResp = await fetch(WORKER_URL, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
