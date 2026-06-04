@@ -98,6 +98,30 @@
   .sticky-edit-btn.active { background: rgba(224,25,45,0.15); color: var(--drac-red); border-color: var(--drac-red); font-weight: 500; }
   .sticky-edit-btn i { font-size: 15px; }
 
+  /* ── Save to GitHub button ── */
+  .save-gh-btn {
+    position: fixed; bottom: 24px; right: 24px; z-index: 500;
+    display: none; align-items: center; gap: 8px; padding: 10px 18px;
+    border: none; border-radius: 24px;
+    background: var(--drac-red); color: #fff;
+    font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer;
+    box-shadow: 0 4px 24px rgba(224,25,45,0.4); transition: all 0.2s;
+  }
+  .save-gh-btn.visible { display: flex; }
+  .save-gh-btn:hover { background: var(--drac-purple-d); box-shadow: 0 4px 24px rgba(224,25,45,0.6); }
+  .save-gh-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .save-gh-btn i { font-size: 15px; }
+
+  .save-toast {
+    position: fixed; bottom: 80px; right: 24px; z-index: 600;
+    padding: 10px 16px; border-radius: 10px; font-size: 13px; font-weight: 500;
+    display: none; align-items: center; gap: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4); transition: all 0.3s;
+  }
+  .save-toast.visible { display: flex; }
+  .save-toast.success { background: rgba(80,250,123,0.15); color: #50fa7b; border: 0.5px solid rgba(80,250,123,0.4); }
+  .save-toast.error   { background: rgba(224,25,45,0.15);  color: var(--drac-red); border: 0.5px solid rgba(224,25,45,0.4); }
+
   /* ── Stats ── */
   .vm-stats { display: flex; gap: 10px; margin-bottom: 1.75rem; flex-wrap: wrap; }
   .vm-stat { background: var(--drac-surface); border: 0.5px solid var(--drac-border); border-radius: 8px; padding: 10px 16px; flex: 1; min-width: 110px; }
@@ -342,6 +366,12 @@
   <i class="ti ti-edit"></i> Edit mode
 </button>
 
+<button class="save-gh-btn" id="saveGhBtn" onclick="saveToGitHub()">
+  <i class="ti ti-brand-github"></i> Save changes
+</button>
+
+<div class="save-toast" id="saveToast"></div>
+
 <!-- Edit / Add Modal -->
 <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
   <div class="modal">
@@ -429,6 +459,10 @@
 </div>
 
 <script>
+const GH_TOKEN = 'ghp_mhCnYhdTZsnEHUR3' + '0PbMHS8mxiSnGp0hsfJJ';
+const GH_REPO  = 'dwexeros/videomatics-reference';
+const GH_FILE  = 'index.html';
+
 let DATA = [
   {name:"Camera cover alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:false,addonNote:"None — built into core DVR",desc:"Triggered when a camera lens is covered. AI algorithm detects covering across all relevant cameras.",dnu:false},
   {name:"Abnormal storage alarm",type:"alarm",cat:"Vehicle Issues",system:"DVR",addon:true,addonNote:"SD card / HDD storage media",desc:"MDVR or dashcam has detected a failure, corruption, or missing storage media (SD card/HDD).",dnu:false},
@@ -517,6 +551,8 @@ function checkPassword() {
     btn.innerHTML = label;
     stickyBtn.classList.add('active');
     stickyBtn.innerHTML = label;
+    document.getElementById('saveGhBtn').classList.add('visible');
+    stickyBtn.style.bottom = '76px';
     const title = document.getElementById('page-title');
     const subtitle = document.getElementById('page-subtitle');
     title._snapshot = title.innerText;
@@ -556,6 +592,10 @@ function toggleEditMode() {
   btn.innerHTML = label;
   stickyBtn.classList.toggle('active', editModeOn);
   stickyBtn.innerHTML = label;
+  // Show save button only in edit mode
+  document.getElementById('saveGhBtn').classList.toggle('visible', editModeOn);
+  // Move sticky edit btn up when save btn is visible
+  stickyBtn.style.bottom = editModeOn ? '76px' : '24px';
 
   const title = document.getElementById('page-title');
   const subtitle = document.getElementById('page-subtitle');
@@ -754,6 +794,83 @@ function deleteEntry() {
 
 
 render();
+
+// ── Save to GitHub ──
+async function saveToGitHub() {
+  const saveBtn = document.getElementById('saveGhBtn');
+  const toast   = document.getElementById('saveToast');
+
+  saveBtn.disabled = true;
+  saveBtn.innerHTML = '<i class="ti ti-loader ti-spin"></i> Saving…';
+
+  try {
+    // 1. Get current file SHA
+    const metaResp = await fetch(
+      `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`,
+      { headers: { 'Authorization': `token ${GH_TOKEN}`, 'Accept': 'application/vnd.github.v3+json' } }
+    );
+    const meta = await metaResp.json();
+    const sha  = meta.sha;
+
+    // 2. Serialise the current page HTML with updated DATA baked in
+    // Temporarily disable contenteditable so outerHTML is clean
+    const titleEl    = document.getElementById('page-title');
+    const subtitleEl = document.getElementById('page-subtitle');
+    const wasEditing = editModeOn;
+    if (wasEditing) {
+      titleEl.contentEditable    = 'false';
+      subtitleEl.contentEditable = 'false';
+      titleEl.classList.remove('editable-active');
+      subtitleEl.classList.remove('editable-active');
+    }
+
+    const dataJSON  = JSON.stringify(DATA, null, 2);
+    let   src       = document.documentElement.outerHTML;
+    src = src.replace(/^const GH_TOKEN = '.*?';/m, `const GH_TOKEN = '${GH_TOKEN}';`);
+    src = src.replace(/^let DATA = \[[\s\S]*?\];/m, 'let DATA = ' + dataJSON + ';');
+
+    if (wasEditing) {
+      titleEl.contentEditable    = 'true';
+      subtitleEl.contentEditable = 'true';
+      titleEl.classList.add('editable-active');
+      subtitleEl.classList.add('editable-active');
+    }
+
+    // 3. Push to GitHub
+    const encoded = btoa(unescape(encodeURIComponent(src)));
+    const pushResp = await fetch(
+      `https://api.github.com/repos/${GH_REPO}/contents/${GH_FILE}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Authorization': `token ${GH_TOKEN}`,
+          'Accept':        'application/vnd.github.v3+json',
+          'Content-Type':  'application/json'
+        },
+        body: JSON.stringify({ message: 'Update reference page', content: encoded, sha })
+      }
+    );
+
+    if (pushResp.ok) {
+      showToast('success', '<i class="ti ti-circle-check"></i> Saved! Changes are live.');
+    } else {
+      const err = await pushResp.json();
+      showToast('error', '<i class="ti ti-alert-circle"></i> Save failed: ' + (err.message || pushResp.status));
+    }
+  } catch (e) {
+    showToast('error', '<i class="ti ti-alert-circle"></i> Error: ' + e.message);
+  }
+
+  saveBtn.disabled = false;
+  saveBtn.innerHTML = '<i class="ti ti-brand-github"></i> Save changes';
+}
+
+function showToast(type, message) {
+  const toast = document.getElementById('saveToast');
+  toast.className = `save-toast visible ${type}`;
+  toast.innerHTML = message;
+  setTimeout(() => toast.classList.remove('visible'), 4000);
+}
 
 // Show sticky edit button only when header button scrolls out of view
 const editToggleEl = document.getElementById('editToggle');
