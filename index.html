@@ -796,8 +796,53 @@ render();
 // ── Save to GitHub ──
 async function saveToGitHub() {
   const saveBtn = document.getElementById('saveGhBtn');
-  const toast   = document.getElementById('saveToast');
 
+  saveBtn.disabled = true;
+  saveBtn.innerHTML = '<i class="ti ti-loader ti-spin"></i> Saving…';
+
+  try {
+    // 1. Get current SHA via Worker
+    const metaResp = await fetch(WORKER_URL, { method: 'GET' });
+    if (!metaResp.ok) throw new Error('Could not fetch SHA: ' + metaResp.status);
+    const meta = await metaResp.json();
+    const sha  = meta.sha;
+
+    // 2. Temporarily disable contenteditable so outerHTML is clean
+    const titleEl    = document.getElementById('page-title');
+    const subtitleEl = document.getElementById('page-subtitle');
+    titleEl.contentEditable    = 'false';
+    subtitleEl.contentEditable = 'false';
+    titleEl.classList.remove('editable-active');
+    subtitleEl.classList.remove('editable-active');
+
+    // 3. Serialise page with updated DATA baked in
+    const dataJSON = JSON.stringify(DATA, null, 2);
+    let src = document.documentElement.outerHTML;
+    src = src.replace(/let DATA = \[[\s\S]*?\];/, 'let DATA = ' + dataJSON + ';');
+
+    // 4. Restore contenteditable
+    titleEl.contentEditable    = 'true';
+    subtitleEl.contentEditable = 'true';
+    titleEl.classList.add('editable-active');
+    subtitleEl.classList.add('editable-active');
+
+    // 5. Push via Worker
+    const encoded  = btoa(unescape(encodeURIComponent(src)));
+    const pushResp = await fetch(WORKER_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content: encoded, sha })
+    });
+
+    if (pushResp.ok) {
+      showToast('success', '<i class="ti ti-circle-check"></i> Saved! Changes are live.');
+    } else {
+      const err = await pushResp.json();
+      showToast('error', '<i class="ti ti-alert-circle"></i> Save failed: ' + (err.message || pushResp.status));
+    }
+  } catch (e) {
+    showToast('error', '<i class="ti ti-alert-circle"></i> Error: ' + e.message);
+  }
 
   saveBtn.disabled = false;
   saveBtn.innerHTML = '<i class="ti ti-brand-github"></i> Save changes';
