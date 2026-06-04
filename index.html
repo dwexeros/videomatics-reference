@@ -204,21 +204,7 @@
   .vm-empty { padding: 3rem; text-align: center; color: var(--drac-fg-dim); font-size: 13px; }
   .vm-empty i { font-size: 28px; display: block; margin-bottom: 10px; }
 
-  /* ── Export banner ── */
-  .export-bar {
-    display: none; align-items: center; justify-content: space-between; gap: 12px;
-    background: rgba(224,25,45,0.08); border: 0.5px solid var(--drac-red);
-    border-radius: 8px; padding: 10px 14px; margin-bottom: 1.25rem; flex-wrap: wrap;
-  }
-  .export-bar.visible { display: flex; }
-  .export-bar-text { font-size: 12px; color: var(--drac-red); display: flex; align-items: center; gap: 6px; }
-  .export-bar-text i { font-size: 14px; }
-  .export-btn {
-    font-size: 12px; padding: 5px 14px; border-radius: 20px;
-    border: 0.5px solid var(--drac-red); background: var(--drac-red);
-    color: var(--drac-bg); cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.15s;
-  }
-  .export-btn:hover { background: var(--drac-purple-d); border-color: var(--drac-purple-d); color: #fff; }
+
 
   /* ── Modal overlay ── */
   .modal-overlay {
@@ -279,6 +265,41 @@
   .btn-primary:hover { background: var(--drac-purple-d); border-color: var(--drac-purple-d); color: #ffffff; }
   .btn-danger { color: var(--drac-red); border-color: rgba(255,85,85,0.3); }
   .btn-danger:hover { background: rgba(255,85,85,0.12); border-color: var(--drac-red); }
+
+  /* ── Password modal ── */
+  .pw-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+    z-index: 2000; align-items: center; justify-content: center; padding: 1rem;
+  }
+  .pw-overlay.open { display: flex; }
+  .pw-modal {
+    background: var(--drac-surface); border: 0.5px solid var(--drac-border);
+    border-radius: 12px; width: 100%; max-width: 360px; padding: 28px 24px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .pw-title { font-size: 16px; font-weight: 500; color: var(--drac-red); display: flex; align-items: center; gap: 8px; }
+  .pw-title i { font-size: 18px; }
+  .pw-subtitle { font-size: 13px; color: var(--drac-fg-muted); margin-top: -8px; }
+  .pw-input-row { display: flex; gap: 8px; }
+  .pw-input {
+    flex: 1; padding: 9px 12px; border: 0.5px solid var(--drac-border); border-radius: 8px;
+    background: var(--drac-surface2); color: var(--drac-fg); font-size: 13px;
+    font-family: inherit; outline: none; transition: border-color 0.15s;
+  }
+  .pw-input:focus { border-color: var(--drac-red); }
+  .pw-input.error { border-color: var(--drac-red); animation: shake 0.3s ease; }
+  .pw-btn {
+    padding: 9px 16px; border-radius: 8px; background: var(--drac-red); color: #fff;
+    border: none; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all 0.15s;
+  }
+  .pw-btn:hover { background: var(--drac-purple-d); }
+  .pw-error { font-size: 12px; color: var(--drac-red); display: none; }
+  .pw-error.visible { display: block; }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
 </style>
 </head>
 <body>
@@ -293,10 +314,7 @@
     </button>
   </div>
 
-  <div class="export-bar" id="exportBar">
-    <span class="export-bar-text"><i class="ti ti-device-floppy"></i> You have unsaved changes — download the updated file to keep them.</span>
-    <button class="export-btn" onclick="exportHTML()">Download updated file</button>
-  </div>
+
 
   <div class="vm-stats">
     <div class="vm-stat"><div class="vm-stat-n" id="s-total">55</div><div class="vm-stat-l">Total entries</div></div>
@@ -487,7 +505,47 @@ function setFilter(cat) {
   render();
 }
 
+function checkPassword() {
+  const input = document.getElementById('pwInput').value;
+  if (input === 'exeros134') {
+    document.getElementById('pwOverlay').classList.remove('open');
+    editModeOn = true;
+    const btn = document.getElementById('editToggle');
+    const stickyBtn = document.getElementById('stickyEditBtn');
+    const label = '<i class="ti ti-edit-off"></i> Exit edit mode';
+    btn.classList.add('active');
+    btn.innerHTML = label;
+    stickyBtn.classList.add('active');
+    stickyBtn.innerHTML = label;
+    const title = document.getElementById('page-title');
+    const subtitle = document.getElementById('page-subtitle');
+    title._snapshot = title.innerText;
+    subtitle._snapshot = subtitle.innerText;
+    title.contentEditable = 'true';
+    subtitle.contentEditable = 'true';
+    title.classList.add('editable-active');
+    subtitle.classList.add('editable-active');
+    render();
+  } else {
+    const input_el = document.getElementById('pwInput');
+    input_el.classList.add('error');
+    document.getElementById('pwError').classList.add('visible');
+    setTimeout(() => input_el.classList.remove('error'), 400);
+    input_el.value = '';
+    input_el.focus();
+  }
+}
+
 function toggleEditMode() {
+  if (!editModeOn) {
+    // Prompt for password before enabling edit mode
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwError').classList.remove('visible');
+    document.getElementById('pwOverlay').classList.add('open');
+    setTimeout(() => document.getElementById('pwInput').focus(), 100);
+    return;
+  }
+  // Exiting edit mode — no password needed
   editModeOn = !editModeOn;
   const btn = document.getElementById('editToggle');
   const stickyBtn = document.getElementById('stickyEditBtn');
@@ -518,8 +576,7 @@ function toggleEditMode() {
     subtitle.classList.remove('editable-active');
     if (title.innerText !== title._snapshot || subtitle.innerText !== subtitle._snapshot) {
       hasChanges = true;
-      document.getElementById('exportBar').classList.add('visible');
-    }
+        }
   }
   render();
 }
@@ -682,7 +739,6 @@ function saveEntry() {
     DATA.push(entry);
   }
   hasChanges = true;
-  document.getElementById('exportBar').classList.add('visible');
   closeModal();
   render();
 }
@@ -692,24 +748,10 @@ function deleteEntry() {
   if (!confirm('Delete "' + DATA[editingIndex].name + '"? This cannot be undone.')) return;
   DATA.splice(editingIndex, 1);
   hasChanges = true;
-  document.getElementById('exportBar').classList.add('visible');
   closeModal();
   render();
 }
 
-function exportHTML() {
-  const dataJSON = JSON.stringify(DATA, null, 2);
-  const src = document.documentElement.outerHTML;
-  const updated = src.replace(/^let DATA = \[[\s\S]*?\];/m, 'let DATA = ' + dataJSON + ';');
-  const blob = new Blob([updated], {type: 'text/html'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'videomatics_events_alarms.html';
-  a.click();
-  URL.revokeObjectURL(a.href);
-  hasChanges = false;
-  document.getElementById('exportBar').classList.remove('visible');
-}
 
 render();
 
@@ -722,5 +764,19 @@ const observer = new IntersectionObserver(
 );
 observer.observe(editToggleEl);
 </script>
+
+<!-- Password Modal -->
+<div class="pw-overlay" id="pwOverlay">
+  <div class="pw-modal">
+    <div class="pw-title"><i class="ti ti-lock"></i> Edit mode</div>
+    <p class="pw-subtitle">Enter the password to enable editing.</p>
+    <div class="pw-input-row">
+      <input class="pw-input" type="password" id="pwInput" placeholder="Password"
+        onkeydown="if(event.key==='Enter') checkPassword()" />
+      <button class="pw-btn" onclick="checkPassword()">Unlock</button>
+    </div>
+    <span class="pw-error" id="pwError">Incorrect password. Try again.</span>
+  </div>
+</div>
 </body>
 </html>
